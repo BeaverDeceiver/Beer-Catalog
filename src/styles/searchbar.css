@@ -14,6 +14,10 @@
   border-bottom: 1px solid #bdbdbd;
 }
 
+.search__input:focus-visible {
+  outline: none;
+}
+
 .search__button {
   color: #444444;
   margin-left: 4px;
