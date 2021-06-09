@@ -1,0 +1,36 @@
+.drawer__button {
+  color: #ffffff;
+}
+
+.drawer__icon {
+  margin: 0px 20px 0px 28px;
+}
+
+.drawer__list {
+  width: 300px;
+  font-size: 14px;
+}
+
+.drawer__block {
+  height: 146px;
+  background-color: #106cc8;
+}
+
+.drawer__caption {
+  margin-left: 45px;
+  margin-top: 30px;
+}
+
+.header {
+  display: flex;
+  width: 100%;
+  height: 55px;
+  background-color: #106cc8;
+  align-items: center;
+}
+
+.header__caption,
+.drawer__caption {
+  font-size: 16px;
+  color: #ffffff;
+}
