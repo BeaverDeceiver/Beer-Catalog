@@ -1,0 +1,31 @@
+.beer-item__details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #7f7f7f;
+  text-align: start;
+  padding: 15px 25px;
+  color: #ffffff;
+  font-weight: 400;
+  position: relative;
+  height: calc(100% - 260px - 34px);
+}
+
+.beer-item__name {
+  font-size: 22px;
+  margin: 0px 0px 15px;
+}
+
+.beer-item__description {
+  position: relative;
+  bottom: 0px;
+}
+
+.beer-item__button {
+  margin: 15px 25px 15px 5px;
+  padding: 0px 10px;
+  height: 30px;
+  text-transform: uppercase;
+  color: #ffffff;
+  font-size: 16px;
+}
