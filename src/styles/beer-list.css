@@ -1,12 +1,15 @@
 .beer-list {
-  list-style-type: none;
   display: grid;
-  row-gap: 30px;
+
+  margin: 0 90px;
+
+  list-style-type: none;
+
+  align-content: space-around;
   column-gap: 22px;
   grid-template-columns: 1fr 1fr 1fr;
   justify-content: space-around;
-  align-content: space-around;
-  margin: 0px 90px;
+  row-gap: 30px;
 }
 
 .beer-display {
