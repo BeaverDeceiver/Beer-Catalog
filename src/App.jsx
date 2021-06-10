@@ -1,3 +1,4 @@
+import { BeerList } from './components/BeerList/BeerList';
 import Header from './components/Header/Header';
 import { SearchBar } from './components/Searchbar/Searchbar';
 import './styles/App.css';
@@ -10,6 +11,7 @@ function App() {
       </header>
       <main>
         <SearchBar />
+        <BeerList />
       </main>
     </div>
   );
