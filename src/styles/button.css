@@ -1,0 +1,16 @@
+.button {
+  border: none;
+  cursor: pointer;
+}
+
+.button_transparent {
+  background: transparent;
+}
+
+.button_transparent:hover {
+  background: rgba(200, 200, 200, 0.7);
+}
+
+.button_transparent:active {
+  background: rgba(200, 200, 200, 0.9);
+}

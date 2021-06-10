@@ -27,7 +27,10 @@ export function SearchBar() {
           onChange={handleKeyboard}
           placeholder="Search beers..."
         />
-        <button className="search__button" onClick={handleSearch}>
+        <button
+          className="search__button button button_transparent"
+          onClick={handleSearch}
+        >
           <SearchIcon />
         </button>
       </form>
