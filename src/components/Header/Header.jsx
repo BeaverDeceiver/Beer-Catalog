@@ -8,7 +8,7 @@ import DehazeIcon from '@material-ui/icons/Dehaze';
 import StarIcon from '@material-ui/icons/Star';
 import InboxIcon from '@material-ui/icons/Inbox';
 
-import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default function TemporaryDrawer() {
   const [state, setState] = useState({ isOpen: false });
@@ -40,27 +40,21 @@ export default function TemporaryDrawer() {
             <h1 className="drawer__caption">Beer Catalog</h1>
           </div>
 
-          <Router>
-            <List
-              className="drawer__list"
-              onClick={toggleDrawer(false)}
-              onKeyDown={toggleDrawer(false)}
-            >
-              <Link to="/Home">
-                <ListItem button key="Home">
-                  <InboxIcon className="drawer__icon" />
-                  <ListItemText primary="Home" />
-                </ListItem>
-              </Link>
+          <List
+            className="drawer__list"
+            onClick={toggleDrawer(false)}
+            onKeyDown={toggleDrawer(false)}
+          >
+            <ListItem button key="Home" component={Link} to="/">
+              <InboxIcon className="drawer__icon" />
+              <ListItemText primary="Home" />
+            </ListItem>
 
-              <Link to="/Favorites">
-                <ListItem button key="Favorites">
-                  <StarIcon className="drawer__icon" />
-                  <ListItemText primary="Favorites" />
-                </ListItem>
-              </Link>
-            </List>
-          </Router>
+            <ListItem button key="Favorites" component={Link} to="/favorites">
+              <StarIcon className="drawer__icon" />
+              <ListItemText primary="Favorites" />
+            </ListItem>
+          </List>
         </Drawer>
       </Fragment>
     </section>
