@@ -14,18 +14,18 @@ import {
 export function SearchBar() {
   const [query, setQuery] = useState('punk');
   const [filter, setFilter] = useState({
-    isOpen: false,
     alc_vol: ALCOHOL_VOLUME_MIN,
     ebc: EBC_COLOR_MIN,
     ibu: IBU_MIN,
   });
+  const [displayFilters, setDisplayFilters] = useState(false);
   const dispatch = useDispatch();
   const textInput = useRef(null);
 
   function handleSearch(e) {
     dispatch(fetchBeer({ query }));
     textInput.current.blur();
-    setFilter({ ...filter, isOpen: true });
+    setDisplayFilters(true);
   }
 
   function handleKeyboard(e) {
@@ -68,7 +68,7 @@ export function SearchBar() {
         </button>
       </form>
 
-      {filter.isOpen ? (
+      {displayFilters ? (
         <section className="filter-sliders">
           <h2 className="filter__header">Filter results</h2>
 
