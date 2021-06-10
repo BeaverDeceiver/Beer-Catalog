@@ -16,14 +16,31 @@
 
 .search__input:focus-visible {
   outline: none;
+  border-bottom: 1px solid #106cc8;
+}
+
+.search__input:focus-visible::placeholder {
+  color: #106cc8;
 }
 
 .search__button {
+  display: flex;
+
+  height: 34px;
   color: #444444;
   margin-left: 4px;
   cursor: pointer;
   display: flex;
   justify-content: center;
+  align-items: center;
   border: none;
   background: transparent;
+}
+
+.search__button:hover {
+  background: rgba(200, 200, 200, 0.7);
+}
+
+.search__button:active {
+  background: rgba(200, 200, 200, 0.9);
 }
