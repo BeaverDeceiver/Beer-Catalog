@@ -1,7 +1,11 @@
 import React, { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import SearchIcon from '@material-ui/icons/Search';
-import { fetchBeer } from '../../store/actions/actions';
+import {
+  fetchBeer,
+  setFilters,
+  setFilterStatus,
+} from '../../store/actions/actions';
 import {
   ALCOHOL_VOLUME_MAX,
   ALCOHOL_VOLUME_MIN,
@@ -47,6 +51,8 @@ export function SearchBar() {
       default:
         return;
     }
+    dispatch(setFilters({ filters: filter }));
+    dispatch(setFilterStatus({ filterStatus: displayFilters }));
     e.target.title = e.target.value;
   }
 

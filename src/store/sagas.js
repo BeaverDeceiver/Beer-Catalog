@@ -8,9 +8,10 @@ import fetchAPI from '../apis/Fetch';
 function getURL(params = {}) {
   // cant use url for query generation as is due to the api specs
   let url = new URL('https://api.punkapi.com/v2/beers');
-  for (const [key, value] of Object.entries(params)) {
-    url.searchParams.set(key, value.replace(/\s/g, '_'));
-  }
+  if (params.beer_name !== '')
+    for (const [key, value] of Object.entries(params)) {
+      url.searchParams.set(key, value.replace(/\s/g, '_'));
+    }
   return url;
 }
 
