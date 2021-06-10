@@ -1,0 +1,14 @@
+.beer-list {
+  list-style-type: none;
+  display: grid;
+  row-gap: 30px;
+  column-gap: 22px;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-content: space-around;
+  align-content: space-around;
+  margin: 0px 90px;
+}
+
+.beer-display {
+  text-align: center;
+}
