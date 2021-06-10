@@ -1,8 +1,18 @@
+.searchbar {
+  display: flex;
+  flex-direction: column;
+
+  text-align: center;
+  /* justify-content: space-between; */
+
+  align-items: center;
+}
+
 .search {
   display: flex;
 
   margin: 80px;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 
   align-items: center;
   justify-content: center;
@@ -39,10 +49,28 @@
   justify-content: center;
 }
 
-.search__button:hover {
-  background: rgba(200, 200, 200, 0.7);
+.filter-slider {
+  width: 200px;
+  margin-left: 15px;
 }
 
-.search__button:active {
-  background: rgba(200, 200, 200, 0.9);
+.filter__header {
+  font-size: 16px;
+}
+
+.filter-sliders__article {
+  display: flex;
+
+  width: 100%;
+  margin-bottom: 40px;
+
+  justify-content: space-between;
+}
+
+.filter-sliders {
+  width: 600px;
+}
+
+.slider-section {
+  display: flex;
 }
