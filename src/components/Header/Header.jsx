@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
@@ -7,6 +7,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import DehazeIcon from '@material-ui/icons/Dehaze';
 import StarIcon from '@material-ui/icons/Star';
 import InboxIcon from '@material-ui/icons/Inbox';
+
+import { BrowserRouter as Router, Link } from 'react-router-dom';
 
 export default function TemporaryDrawer() {
   const [state, setState] = useState({ isOpen: false });
@@ -24,7 +26,7 @@ export default function TemporaryDrawer() {
 
   return (
     <section className="header">
-      <React.Fragment key={'left'}>
+      <Fragment key={'left'}>
         <Button onClick={toggleDrawer(true)}>
           <DehazeIcon className="drawer__button" />
         </Button>
@@ -37,25 +39,30 @@ export default function TemporaryDrawer() {
           <div className="drawer__block">
             <h1 className="drawer__caption">Beer Catalog</h1>
           </div>
-          <List
-            className="drawer__list"
-            role="presentation"
-            onClick={toggleDrawer(false)}
-            onKeyDown={toggleDrawer(false)}
-          >
-            {['Home', 'Favorites'].map((text) => (
-              <ListItem button key={text}>
-                {text === 'Favorites' ? (
-                  <StarIcon className="drawer__icon" />
-                ) : (
+
+          <Router>
+            <List
+              className="drawer__list"
+              onClick={toggleDrawer(false)}
+              onKeyDown={toggleDrawer(false)}
+            >
+              <Link to="/Home">
+                <ListItem button key="Home">
                   <InboxIcon className="drawer__icon" />
-                )}
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
+                  <ListItemText primary="Home" />
+                </ListItem>
+              </Link>
+
+              <Link to="/Favorites">
+                <ListItem button key="Favorites">
+                  <StarIcon className="drawer__icon" />
+                  <ListItemText primary="Favorites" />
+                </ListItem>
+              </Link>
+            </List>
+          </Router>
         </Drawer>
-      </React.Fragment>
+      </Fragment>
     </section>
   );
 }
