@@ -29,12 +29,8 @@
   height: 34px;
   color: #444444;
   margin-left: 4px;
-  cursor: pointer;
-  display: flex;
   justify-content: center;
   align-items: center;
-  border: none;
-  background: transparent;
 }
 
 .search__button:hover {
