@@ -1,3 +1,7 @@
+.beer-display {
+  margin-bottom: 90px;
+}
+
 .beer-list {
   display: grid;
 
