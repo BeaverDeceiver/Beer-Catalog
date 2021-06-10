@@ -6,7 +6,7 @@ import {
 } from '../../constants/beerConstants';
 import { STATE_STATUS_IDLE } from '../../constants/stateConstants';
 
-import { listBeer, setFilters } from '../actions/actions';
+import { listBeer, setFilters, setFilterStatus } from '../actions/actions';
 
 const defaultState = {
   query: '',
@@ -32,6 +32,9 @@ const beerSearch = handleActions(
         ...state,
         filters: action.payload.filters,
       };
+    },
+    [setFilterStatus]: (state, action) => {
+      return { ...state, filterStatus: action.payload.filterStatus };
     },
   },
   defaultState
