@@ -12,7 +12,7 @@ export function BeerItem(props) {
       <section className="beer-item__details">
         <section>
           <h1 className="beer-item__name">{beer.name}</h1>
-          <p className="beer-item__description">{beer.description}</p>
+          <p className="beer-item__tagline">{beer.tagline}</p>
         </section>
         <section>
           <button className="beer-item__button button button_transparent">

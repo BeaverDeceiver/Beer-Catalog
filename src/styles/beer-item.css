@@ -23,11 +23,6 @@
   font-size: 22px;
 }
 
-.beer-item__description {
-  position: relative;
-  bottom: 0;
-}
-
 .beer-item__button {
   height: 30px;
   margin: 15px 25px 15px 5px;
