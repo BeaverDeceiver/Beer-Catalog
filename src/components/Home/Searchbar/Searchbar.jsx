@@ -5,7 +5,7 @@ import {
   fetchBeer,
   setFilters,
   setFilterStatus,
-} from '../../store/actions/actions';
+} from '../../../store/actions/actions';
 import {
   ALCOHOL_VOLUME_MAX,
   ALCOHOL_VOLUME_MIN,
@@ -13,7 +13,7 @@ import {
   EBC_COLOR_MIN,
   IBU_MAX,
   IBU_MIN,
-} from '../../constants/beerConstants';
+} from '../../../constants/beerConstants';
 
 export function SearchBar() {
   const [query, setQuery] = useState('punk');

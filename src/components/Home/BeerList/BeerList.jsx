@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { selectBeer } from '../../store/selectors/selectors';
+import { selectBeer } from '../../../store/selectors/selectors';
 import { BeerItem } from '../BeerItem/BeerItem';
 
 export function BeerList() {
