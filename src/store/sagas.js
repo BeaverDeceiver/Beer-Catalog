@@ -23,27 +23,7 @@ function getURL(params = {}) {
   return url;
 }
 
-export function* fetchBeer(action) {
-  const { query } = action.payload;
-  const url =
-    query !== ''
-      ? getURL({ beer_name: query, page: 1, per_page: PER_PAGE })
-      : getURL({ page: 1, per_page: PER_PAGE });
-
-  // fetch api
-  let fetchData = yield fetchAPI(url);
-  let items = fetchData.map((item) => ({ ...item, isFavorite: false }));
-
-  // XMLHttpRequest api
-  // let xhrData = yield xhrAPI(url);
-  // let items = xhrData.map((item) => ({ ...item, isFavorite: false }));
-  if (items.length < PER_PAGE) yield put(reachedEnd());
-  yield put(listBeer({ query, items }));
-  yield put(setStatus({ status: STATE_STATUS_IDLE }));
-}
-
-export function* fetchMoreBeer(action) {
-  const { query, page } = action.payload;
+function* apiCall(query = '', page = 1) {
   const url =
     query !== ''
       ? getURL({ beer_name: query, page, per_page: PER_PAGE })
@@ -52,14 +32,31 @@ export function* fetchMoreBeer(action) {
   // fetch api
   let fetchData = yield fetchAPI(url);
   let items = fetchData.map((item) => ({ ...item, isFavorite: false }));
-  console.log(items);
+
   // XMLHttpRequest api
   // let xhrData = yield xhrAPI(url);
   // let items = xhrData.map((item) => ({ ...item, isFavorite: false }));
   if (items.length < PER_PAGE) yield put(reachedEnd());
+  return items;
+}
+
+export function* fetchBeer(action) {
+  const { query } = action.payload;
+  const items = yield apiCall(query);
+  yield put(listBeer({ query, items }));
+  yield put(setStatus({ status: STATE_STATUS_IDLE }));
+}
+
+export function* fetchMoreBeer(action) {
+  const { query, page } = action.payload;
+  const items = yield apiCall(query, page);
+
+  console.log(items);
   yield put(listMoreBeer({ items, page }));
   yield put(setStatus({ status: STATE_STATUS_IDLE }));
 }
+
+export function* toggleFavorite(action) {}
 
 export function* watchFetchBeer() {
   yield takeEvery('FETCH_BEER', fetchBeer);
@@ -67,6 +64,10 @@ export function* watchFetchBeer() {
 
 export function* watchFetchMoreBeer() {
   yield takeEvery('FETCH_MORE_BEER', fetchMoreBeer);
+}
+
+export function* watchToggleFavorite() {
+  yield takeEvery('TOGGLE_FAVORITE', fetchMoreBeer);
 }
 
 export default function* rootSaga() {
