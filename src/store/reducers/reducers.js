@@ -13,7 +13,7 @@ const defaultState = {
   status: STATE_STATUS_IDLE,
   beer: [],
   nextPageToken: 1,
-  filters: { alc_vol: ALCOHOL_VOLUME_MIN, ibu: IBU_MIN, ebc: EBC_COLOR_MIN },
+  filters: { abv: ALCOHOL_VOLUME_MIN, ibu: IBU_MIN, ebc: EBC_COLOR_MIN },
   filterStatus: false,
 };
 

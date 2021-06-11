@@ -18,7 +18,7 @@ import {
 export function SearchBar() {
   const [query, setQuery] = useState('punk');
   const [filter, setFilter] = useState({
-    alc_vol: ALCOHOL_VOLUME_MIN,
+    abv: ALCOHOL_VOLUME_MIN,
     ebc: EBC_COLOR_MIN,
     ibu: IBU_MIN,
   });
@@ -37,10 +37,10 @@ export function SearchBar() {
   }
 
   function handleSlider(e, type) {
-    const newValue = e.target.value;
+    const newValue = Number(e.target.value);
     switch (type) {
-      case 'alc_vol':
-        setFilter({ ...filter, alc_vol: newValue });
+      case 'abv':
+        setFilter({ ...filter, abv: newValue });
         break;
       case 'ibu':
         setFilter({ ...filter, ibu: newValue });
@@ -81,16 +81,16 @@ export function SearchBar() {
           <article className="filter-sliders__article">
             <p>Alcohol by volume</p>
             <section className="slider-section">
-              <p>{filter.alc_vol}</p>
+              <p>{filter.abv}</p>
               <input
                 type="range"
                 min={ALCOHOL_VOLUME_MIN}
                 max={ALCOHOL_VOLUME_MAX}
                 defaultValue={ALCOHOL_VOLUME_MIN}
                 className="filter-slider"
-                id="alc_volume"
+                id="abv"
                 step={0.1}
-                onInput={(e) => handleSlider(e, 'alc_vol')}
+                onInput={(e) => handleSlider(e, 'abv')}
               ></input>
             </section>
           </article>
