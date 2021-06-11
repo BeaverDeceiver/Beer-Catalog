@@ -5,7 +5,20 @@
 @import url('./image.css');
 @import url('./button.css');
 @import url('./favorites.css');
+
 .container {
   display: flex;
   flex-direction: column;
+}
+
+/* hide scrollbar */
+.scroll-area {
+  height: calc(100vh - 55px);
+  overflow-y: auto;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.scroll-area::-webkit-scrollbar {
+  display: none;
 }

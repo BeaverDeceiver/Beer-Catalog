@@ -1,11 +1,11 @@
 .beer-display {
-  margin-bottom: 90px;
+  margin-bottom: 20px;
 }
 
 .beer-list {
   display: grid;
 
-  margin: 0 90px;
+  margin: 0 90px 50px;
 
   list-style-type: none;
 
