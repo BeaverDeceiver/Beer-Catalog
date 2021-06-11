@@ -1,10 +1,20 @@
 .favorites__header {
   font-weight: 400;
   text-align: center;
+  margin: 22px 0px;
 }
 
 .favorites-list {
+  height: calc(100vh - 55px - 47px - 44px - 35px);
+
   margin: 35px 200px 0px 100px;
+  overflow-y: auto;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.favorites-list::-webkit-scrollbar {
+  display: none;
 }
 
 .favorites-list__item {
