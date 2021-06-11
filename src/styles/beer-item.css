@@ -1,6 +1,4 @@
 .beer-item__details {
-  position: relative;
-
   display: flex;
   flex-direction: column;
 
@@ -33,4 +31,8 @@
   color: #ffffff;
 
   font-size: 16px;
+}
+
+.beer-item__image {
+  height: 260px;
 }

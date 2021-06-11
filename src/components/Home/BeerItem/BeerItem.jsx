@@ -14,11 +14,13 @@ export function BeerItem(props) {
 
   return (
     <>
-      <img
-        className="beer-item__image image_small"
-        src={beer.image_url}
-        alt="beer_image"
-      ></img>
+      <section className="beer-item__image">
+        <img
+          className="image_small"
+          src={beer.image_url}
+          alt={`'${beer.name}'`}
+        ></img>
+      </section>
       <section className="beer-item__details">
         <section>
           <h1 className="beer-item__name">{beer.name}</h1>

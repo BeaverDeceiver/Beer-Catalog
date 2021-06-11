@@ -35,7 +35,7 @@ export function FavoritesItem(props) {
         <img
           className="favorite-item__image image_small"
           src={beer.image_url}
-          alt="beer_image"
+          alt={`'${beer.name}`}
         ></img>
       </section>
     </>
