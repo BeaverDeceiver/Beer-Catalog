@@ -23,7 +23,6 @@ export function Home() {
 
   function handleScroll(e) {
     let element = e.target;
-    console.log('dispatch');
     if (
       status === STATE_STATUS_IDLE &&
       !reachedEnd &&

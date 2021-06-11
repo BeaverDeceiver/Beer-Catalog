@@ -1,12 +1,15 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toggleFavorite } from '../../../store/actions/actions';
+import { selectFavorites } from '../../../store/selectors/selectors';
 
 export function FavoritesItem(props) {
   const { beer } = props;
   const dispatch = useDispatch();
+  const favorites = useSelector(selectFavorites);
+
   function handleToggleFavorite() {
-    dispatch(toggleFavorite({ id: beer.id }));
+    dispatch(toggleFavorite({ id: beer.id, favorites }));
   }
   return (
     <>

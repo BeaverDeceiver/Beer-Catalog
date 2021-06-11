@@ -1,9 +1,11 @@
 import { all, put, takeEvery } from 'redux-saga/effects';
 
 import {
+  addFavorite,
   listBeer,
   listMoreBeer,
   reachedEnd,
+  removeFavorite,
   setStatus,
 } from '../store/actions/actions';
 
@@ -19,11 +21,10 @@ function getURL(params = {}) {
       url.searchParams.set(key, value.replace(/\s/g, '_'));
     else url.searchParams.set(key, value);
   }
-  console.log(url);
   return url;
 }
 
-function* apiCall(query = '', page = 1) {
+function* apiCall(query = '', page = 1, favorites) {
   const url =
     query !== ''
       ? getURL({ beer_name: query, page, per_page: PER_PAGE })
@@ -31,8 +32,9 @@ function* apiCall(query = '', page = 1) {
 
   // fetch api
   let fetchData = yield fetchAPI(url);
-  let items = fetchData.map((item) => ({ ...item, isFavorite: false }));
-
+  let items = fetchData.map((item) => {
+    return { ...item, isFavorite: false };
+  });
   // XMLHttpRequest api
   // let xhrData = yield xhrAPI(url);
   // let items = xhrData.map((item) => ({ ...item, isFavorite: false }));
@@ -41,22 +43,29 @@ function* apiCall(query = '', page = 1) {
 }
 
 export function* fetchBeer(action) {
-  const { query } = action.payload;
-  const items = yield apiCall(query);
+  const { query, favorites } = action.payload;
+  const items = yield apiCall(query, 1, favorites);
   yield put(listBeer({ query, items }));
   yield put(setStatus({ status: STATE_STATUS_IDLE }));
 }
 
 export function* fetchMoreBeer(action) {
-  const { query, page } = action.payload;
-  const items = yield apiCall(query, page);
+  const { query, page, favorites } = action.payload;
+  const items = yield apiCall(query, page, favorites);
 
   console.log(items);
   yield put(listMoreBeer({ items, page }));
   yield put(setStatus({ status: STATE_STATUS_IDLE }));
 }
 
-export function* toggleFavorite(action) {}
+export function* toggleFavorite(action) {
+  const { favorites, id } = action.payload;
+  if (!favorites.find((item) => item.id === id)) {
+    yield put(addFavorite({ id }));
+  } else {
+    yield put(removeFavorite({ id }));
+  }
+}
 
 export function* watchFetchBeer() {
   yield takeEvery('FETCH_BEER', fetchBeer);
@@ -67,9 +76,9 @@ export function* watchFetchMoreBeer() {
 }
 
 export function* watchToggleFavorite() {
-  yield takeEvery('TOGGLE_FAVORITE', fetchMoreBeer);
+  yield takeEvery('TOGGLE_FAVORITE', toggleFavorite);
 }
 
 export default function* rootSaga() {
-  yield all([watchFetchBeer(), watchFetchMoreBeer()]);
+  yield all([watchFetchBeer(), watchFetchMoreBeer(), watchToggleFavorite()]);
 }

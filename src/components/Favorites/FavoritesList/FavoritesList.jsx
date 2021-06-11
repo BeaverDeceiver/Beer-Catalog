@@ -1,21 +1,19 @@
 import React from 'react';
-import { selectBeer } from '../../../store/selectors/selectors';
+import { selectFavorites } from '../../../store/selectors/selectors';
 import { useSelector } from 'react-redux';
 import { FavoritesItem } from '../FavoritesItem/FavoritesItem';
 
 export function FavoritesList() {
-  const beerItems = useSelector(selectBeer);
+  const favorites = useSelector(selectFavorites);
 
   return (
     <>
       <section className="favorites-list">
-        {beerItems
-          .filter((item) => item.isFavorite)
-          .map((item) => (
-            <article className="favorites-list__item" key={item.id}>
-              <FavoritesItem beer={item} />
-            </article>
-          ))}
+        {favorites.map((item) => (
+          <article className="favorites-list__item" key={item.id}>
+            <FavoritesItem beer={item} />
+          </article>
+        ))}
       </section>
     </>
   );

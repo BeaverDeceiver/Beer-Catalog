@@ -13,7 +13,8 @@ import {
   setFilters,
   setFilterStatus,
   setStatus,
-  toggleFavorite,
+  removeFavorite,
+  addFavorite,
 } from '../actions/actions';
 
 const defaultState = {
@@ -21,6 +22,7 @@ const defaultState = {
   status: STATE_STATUS_IDLE,
   reachedEnd: false,
   beer: [],
+  favorites: [],
   page: 1,
   filters: { abv: ALCOHOL_VOLUME_MIN, ibu: IBU_MIN, ebc: EBC_COLOR_MIN },
   filterStatus: false,
@@ -28,6 +30,7 @@ const defaultState = {
 
 const beerSearch = handleActions(
   {
+    // list
     [listBeer]: (state, action) => {
       return {
         ...state,
@@ -44,6 +47,7 @@ const beerSearch = handleActions(
         page: state.page + 1,
       };
     },
+    // filters
     [setFilters]: (state, action) => {
       return {
         ...state,
@@ -53,16 +57,30 @@ const beerSearch = handleActions(
     [setFilterStatus]: (state, action) => {
       return { ...state, filterStatus: action.payload.filterStatus };
     },
-    [toggleFavorite]: (state, action) => {
+    // favorites
+    [removeFavorite]: (state, action) => {
       return {
         ...state,
         beer: state.beer.map((item) =>
-          item.id === action.payload.id
-            ? { ...item, isFavorite: !item.isFavorite }
-            : item
+          item.id === action.payload.id ? { ...item, isFavorite: false } : item
+        ),
+        favorites: state.favorites.filter(
+          (item) => item.id !== action.payload.id
         ),
       };
     },
+    [addFavorite]: (state, action) => {
+      return {
+        ...state,
+        beer: state.beer.map((item) =>
+          item.id === action.payload.id ? { ...item, isFavorite: true } : item
+        ),
+        favorites: state.favorites.concat(
+          state.beer.find((item) => item.id === action.payload.id)
+        ),
+      };
+    },
+    // status
     [setStatus]: (state, action) => {
       return {
         ...state,

@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import SearchIcon from '@material-ui/icons/Search';
 import {
   fetchBeer,
@@ -16,9 +16,10 @@ import {
   IBU_MIN,
 } from '../../../constants/beerConstants';
 import { STATE_STATUS_BUSY } from '../../../constants/stateConstants';
+import { selectFavorites } from '../../../store/selectors/selectors';
 
 export function SearchBar() {
-  const [query, setQuery] = useState('punk');
+  const [query, setQuery] = useState('');
   const [filter, setFilter] = useState({
     abv: ALCOHOL_VOLUME_MIN,
     ebc: EBC_COLOR_MIN,
@@ -27,10 +28,11 @@ export function SearchBar() {
   const [displayFilters, setDisplayFilters] = useState(false);
   const dispatch = useDispatch();
   const textInput = useRef(null);
+  const favorites = useSelector(selectFavorites);
 
-  function handleSearch(e) {
+  function handleSearch() {
     dispatch(setStatus({ status: STATE_STATUS_BUSY }));
-    dispatch(fetchBeer({ query }));
+    dispatch(fetchBeer({ query, favorites }));
     textInput.current.blur();
     setDisplayFilters(true);
   }

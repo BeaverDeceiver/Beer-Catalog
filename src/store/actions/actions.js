@@ -1,19 +1,28 @@
 import { createAction } from 'redux-actions';
 
+// list
 export const listBeer = createAction('LIST_BEER');
 
 export const listMoreBeer = createAction('LIST_MORE_BEER');
 
+// fetch
 export const fetchBeer = createAction('FETCH_BEER');
 
 export const fetchMoreBeer = createAction('FETCH_MORE_BEER');
 
+// filters
 export const setFilters = createAction('SET_FILTERS');
 
 export const setFilterStatus = createAction('SET_FILTER_STATUS');
 
+// favorites
+export const addFavorite = createAction('ADD_FAVORITE');
+
 export const toggleFavorite = createAction('TOGGLE_FAVORITE');
 
+export const removeFavorite = createAction('REMOVE_FAVORITE');
+
+// status
 export const setStatus = createAction('SET_STATUS');
 
 export const reachedEnd = createAction('REACHED_END');
