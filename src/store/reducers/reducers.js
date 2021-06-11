@@ -6,7 +6,12 @@ import {
 } from '../../constants/beerConstants';
 import { STATE_STATUS_IDLE } from '../../constants/stateConstants';
 
-import { listBeer, setFilters, setFilterStatus } from '../actions/actions';
+import {
+  listBeer,
+  setFilters,
+  setFilterStatus,
+  toggleFavorite,
+} from '../actions/actions';
 
 const defaultState = {
   query: '',
@@ -35,6 +40,16 @@ const beerSearch = handleActions(
     },
     [setFilterStatus]: (state, action) => {
       return { ...state, filterStatus: action.payload.filterStatus };
+    },
+    [toggleFavorite]: (state, action) => {
+      return {
+        ...state,
+        beer: state.beer.map((item) =>
+          item.id === action.payload.id
+            ? { ...item, isFavorite: !item.isFavorite }
+            : item
+        ),
+      };
     },
   },
   defaultState

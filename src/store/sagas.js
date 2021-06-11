@@ -21,9 +21,12 @@ export function* fetchBeer(action) {
 
   // fetch api
   let fetchData = yield fetchAPI(url);
+  let items = fetchData.map((item) => ({ ...item, isFavorite: false }));
+
   // XMLHttpRequest api
   // let xhrData = yield xhrAPI(url);
-  yield put(listBeer({ query, items: fetchData }));
+  // let items = xhrData.map((item) => ({ ...item, isFavorite: false }));
+  yield put(listBeer({ query, items }));
 }
 
 export function* watchFetchVideos() {

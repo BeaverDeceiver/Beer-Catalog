@@ -1,7 +1,14 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { toggleFavorite } from '../../../store/actions/actions';
 
 export function BeerItem(props) {
   const { beer } = props;
+  const dispatch = useDispatch();
+  function handleToggleFavorite() {
+    dispatch(toggleFavorite({ id: beer.id }));
+  }
+
   return (
     <>
       <img
@@ -18,8 +25,11 @@ export function BeerItem(props) {
           <button className="beer-item__button button button_transparent">
             Open
           </button>
-          <button className="beer-item__button button button_transparent">
-            Favorite
+          <button
+            className="beer-item__button button button_transparent"
+            onClick={handleToggleFavorite}
+          >
+            {!beer.isFavorite ? 'Favorite' : 'Remove Favorite'}
           </button>
         </section>
       </section>

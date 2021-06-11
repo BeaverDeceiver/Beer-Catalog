@@ -9,11 +9,13 @@ export function FavoritesList() {
   return (
     <>
       <section className="favorites-list">
-        {beerItems.map((item) => (
-          <article className="favorites-list__item" key={item.id}>
-            <FavoritesItem beer={item} />
-          </article>
-        ))}
+        {beerItems
+          .filter((item) => item.isFavorite)
+          .map((item) => (
+            <article className="favorites-list__item" key={item.id}>
+              <FavoritesItem beer={item} />
+            </article>
+          ))}
       </section>
     </>
   );
