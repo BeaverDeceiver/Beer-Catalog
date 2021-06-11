@@ -19,3 +19,7 @@
 .beer-display {
   text-align: center;
 }
+
+.load-spinner {
+  height: 50px;
+}

@@ -9,3 +9,5 @@ export const setFilters = createAction('SET_FILTERS');
 export const setFilterStatus = createAction('SET_FILTER_STATUS');
 
 export const toggleFavorite = createAction('TOGGLE_FAVORITE');
+
+export const setStatus = createAction('SET_STATUS');

@@ -10,12 +10,14 @@ import {
   listBeer,
   setFilters,
   setFilterStatus,
+  setStatus,
   toggleFavorite,
 } from '../actions/actions';
 
 const defaultState = {
   query: '',
   status: STATE_STATUS_IDLE,
+  reachedEnd: false,
   beer: [],
   nextPageToken: 1,
   filters: { abv: ALCOHOL_VOLUME_MIN, ibu: IBU_MIN, ebc: EBC_COLOR_MIN },
@@ -49,6 +51,13 @@ const beerSearch = handleActions(
             ? { ...item, isFavorite: !item.isFavorite }
             : item
         ),
+      };
+    },
+    [setStatus]: (state, action) => {
+      console.log('caught');
+      return {
+        ...state,
+        status: action.payload.status,
       };
     },
   },
