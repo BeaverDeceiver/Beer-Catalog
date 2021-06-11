@@ -13,8 +13,10 @@
 
 /* hide scrollbar */
 .scroll-area {
-  height: calc(100vh - 55px);
   overflow-y: auto;
+
+  height: calc(100vh - 55px);
+
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
