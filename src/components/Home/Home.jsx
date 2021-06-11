@@ -8,6 +8,7 @@ import {
 } from '../../constants/stateConstants';
 import { fetchMoreBeer, setStatus } from '../../store/actions/actions';
 import {
+  selectFavorites,
   selectPage,
   selectQuery,
   selectReachedEnd,
@@ -20,7 +21,7 @@ export function Home() {
   const query = useSelector(selectQuery);
   const page = useSelector(selectPage);
   const reachedEnd = useSelector(selectReachedEnd);
-
+  const favorites = useSelector(selectFavorites);
   function handleScroll(e) {
     let element = e.target;
     if (
@@ -29,12 +30,15 @@ export function Home() {
       element.scrollHeight - element.scrollTop === element.clientHeight
     ) {
       dispatch(setStatus({ status: STATE_STATUS_BUSY }));
-      dispatch(fetchMoreBeer({ query, page }));
+      dispatch(fetchMoreBeer({ query, page, favorites }));
     }
   }
 
   return (
-    <main className="scroll-area" onScroll={_.throttle(handleScroll, 100)}>
+    <main
+      className="scroll-area scroll-area_home"
+      onScroll={_.throttle(handleScroll, 100)}
+    >
       <SearchBar />
       <BeerList />
     </main>

@@ -33,7 +33,13 @@ function* apiCall(query = '', page = 1, favorites) {
   // fetch api
   let fetchData = yield fetchAPI(url);
   let items = fetchData.map((item) => {
-    return { ...item, isFavorite: false };
+    return {
+      ...item,
+      isFavorite:
+        favorites.find((f_item) => {
+          return f_item.id === item.id;
+        }) !== undefined,
+    };
   });
   // XMLHttpRequest api
   // let xhrData = yield xhrAPI(url);
@@ -53,7 +59,6 @@ export function* fetchMoreBeer(action) {
   const { query, page, favorites } = action.payload;
   const items = yield apiCall(query, page, favorites);
 
-  console.log(items);
   yield put(listMoreBeer({ items, page }));
   yield put(setStatus({ status: STATE_STATUS_IDLE }));
 }
