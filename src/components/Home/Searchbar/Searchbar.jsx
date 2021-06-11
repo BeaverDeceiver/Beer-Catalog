@@ -5,6 +5,7 @@ import {
   fetchBeer,
   setFilters,
   setFilterStatus,
+  setStatus,
 } from '../../../store/actions/actions';
 import {
   ALCOHOL_VOLUME_MAX,
@@ -14,6 +15,7 @@ import {
   IBU_MAX,
   IBU_MIN,
 } from '../../../constants/beerConstants';
+import { STATE_STATUS_BUSY } from '../../../constants/stateConstants';
 
 export function SearchBar() {
   const [query, setQuery] = useState('punk');
@@ -27,6 +29,7 @@ export function SearchBar() {
   const textInput = useRef(null);
 
   function handleSearch(e) {
+    dispatch(setStatus({ status: STATE_STATUS_BUSY }));
     dispatch(fetchBeer({ query }));
     textInput.current.blur();
     setDisplayFilters(true);

@@ -10,13 +10,18 @@ export function selectQuery(state) {
   return state.beerSearch.query;
 }
 
-export function selectNextPageToken(state) {
-  return state.beerSearch.nextPageToken;
+export function selectPage(state) {
+  return state.beerSearch.page;
 }
 
 export function selectFilters(state) {
   return state.beerSearch.filters;
 }
+
 export function selectFilterStatus(state) {
   return state.beerSearch.filterStatus;
+}
+
+export function selectReachedEnd(state) {
+  return state.beerSearch.reachedEnd;
 }

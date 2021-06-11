@@ -8,6 +8,8 @@ import { STATE_STATUS_IDLE } from '../../constants/stateConstants';
 
 import {
   listBeer,
+  listMoreBeer,
+  reachedEnd,
   setFilters,
   setFilterStatus,
   setStatus,
@@ -19,7 +21,7 @@ const defaultState = {
   status: STATE_STATUS_IDLE,
   reachedEnd: false,
   beer: [],
-  nextPageToken: 1,
+  page: 1,
   filters: { abv: ALCOHOL_VOLUME_MIN, ibu: IBU_MIN, ebc: EBC_COLOR_MIN },
   filterStatus: false,
 };
@@ -31,7 +33,15 @@ const beerSearch = handleActions(
         ...state,
         query: action.payload.query,
         beer: action.payload.items,
-        nextPageToken: 2,
+        page: 2,
+        reachedEnd: false,
+      };
+    },
+    [listMoreBeer]: (state, action) => {
+      return {
+        ...state,
+        beer: state.beer.concat(action.payload.items),
+        page: state.page + 1,
       };
     },
     [setFilters]: (state, action) => {
@@ -54,10 +64,15 @@ const beerSearch = handleActions(
       };
     },
     [setStatus]: (state, action) => {
-      console.log('caught');
       return {
         ...state,
         status: action.payload.status,
+      };
+    },
+    [reachedEnd]: (state, action) => {
+      return {
+        ...state,
+        reachedEnd: true,
       };
     },
   },
