@@ -1,17 +1,27 @@
 import React from 'react';
 import { selectFavorites } from '../../../store/selectors/selectors';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { FavoritesItem } from '../FavoritesItem/FavoritesItem';
 import Pagination from '@material-ui/lab/Pagination';
 import { FAVORITES_PER_PAGE } from '../../../constants/common';
 import { useState } from 'react';
+import { toggleFavorite } from '../../../store/actions/actions';
 
 export function FavoritesList() {
   const favorites = useSelector(selectFavorites);
   const [page, setPage] = useState(1);
+  const dispatch = useDispatch();
+  let countPages = Math.floor((favorites.length - 1) / FAVORITES_PER_PAGE) + 1;
 
   function handlePagination(e, page) {
     setPage(page);
+  }
+
+  function handleToggleFavorite(beer) {
+    dispatch(toggleFavorite({ id: beer.id, favorites }));
+    if ((favorites.length - 1) % 5 === 0 && page === countPages) {
+      setPage(page - 1);
+    }
   }
 
   return (
@@ -25,15 +35,16 @@ export function FavoritesList() {
           )
           .map((item) => (
             <article className="favorites-list__item" key={item.id}>
-              <FavoritesItem beer={item} />
+              <FavoritesItem
+                beer={item}
+                handleToggleFavorite={handleToggleFavorite}
+              />
             </article>
           ))}
-        {Math.floor((favorites.length - 1) / FAVORITES_PER_PAGE) > 0 ? (
+        {countPages > 1 ? (
           <section className="pagination">
             <Pagination
-              count={
-                Math.floor((favorites.length - 1) / FAVORITES_PER_PAGE) + 1
-              }
+              count={countPages}
               page={page}
               variant="outlined"
               shape="rounded"

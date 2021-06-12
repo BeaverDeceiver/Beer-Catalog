@@ -1,16 +1,12 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { toggleFavorite } from '../../../store/actions/actions';
-import { selectFavorites } from '../../../store/selectors/selectors';
+// import { useSelector } from 'react-redux';
+// import { selectFavorites } from '../../../store/selectors/selectors';
 
 export function FavoritesItem(props) {
-  const { beer } = props;
-  const dispatch = useDispatch();
-  const favorites = useSelector(selectFavorites);
+  const { beer, handleToggleFavorite } = props;
 
-  function handleToggleFavorite() {
-    dispatch(toggleFavorite({ id: beer.id, favorites }));
-  }
+  // const favorites = useSelector(selectFavorites);
+
   return (
     <>
       <section className="favorite-item__details">
@@ -25,7 +21,7 @@ export function FavoritesItem(props) {
           </button>
           <button
             className="favorite-item__button button button_transparent"
-            onClick={handleToggleFavorite}
+            onClick={() => handleToggleFavorite(beer)}
           >
             Remove Favorite
           </button>
