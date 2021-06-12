@@ -20,9 +20,9 @@ export function BeerList() {
   const shownItems = shouldFilter
     ? beerItems.filter((item) => {
         return (
-          filters.abv >= item.abv &&
-          filters.ibu >= item.ibu &&
-          filters.ebc >= item.ebc
+          filters.abv <= item.abv &&
+          filters.ibu <= item.ibu &&
+          filters.ebc <= item.ebc
         );
       })
     : beerItems;
