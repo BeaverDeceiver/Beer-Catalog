@@ -9,6 +9,7 @@ import { useState } from 'react';
 export function FavoritesList() {
   const favorites = useSelector(selectFavorites);
   const [page, setPage] = useState(1);
+
   function handlePagination(e, page) {
     setPage(page);
   }
@@ -28,13 +29,17 @@ export function FavoritesList() {
             </article>
           ))}
         {Math.floor((favorites.length - 1) / FAVORITES_PER_PAGE) > 0 ? (
-          <Pagination
-            count={Math.floor((favorites.length - 1) / FAVORITES_PER_PAGE) + 1}
-            page={page}
-            variant="outlined"
-            shape="rounded"
-            onChange={handlePagination}
-          />
+          <section className="pagination">
+            <Pagination
+              count={
+                Math.floor((favorites.length - 1) / FAVORITES_PER_PAGE) + 1
+              }
+              page={page}
+              variant="outlined"
+              shape="rounded"
+              onChange={handlePagination}
+            />
+          </section>
         ) : null}
       </section>
     </main>
