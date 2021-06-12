@@ -9,8 +9,8 @@ import {
   setStatus,
 } from '../store/actions/actions';
 
-// import xhrAPI from '../apis/XmlHttpRequest';
-import fetchAPI from '../apis/Fetch';
+import xhrAPI from '../apis/XmlHttpRequest';
+// import fetchAPI from '../apis/Fetch';
 import { PER_PAGE, STATE_STATUS_IDLE } from '../constants/stateConstants';
 
 function getURL(params = {}) {
@@ -24,15 +24,8 @@ function getURL(params = {}) {
   return url;
 }
 
-function* apiCall(query = '', page = 1, favorites) {
-  const url =
-    query !== ''
-      ? getURL({ beer_name: query, page, per_page: PER_PAGE })
-      : getURL({ page, per_page: PER_PAGE });
-
-  // fetch api
-  let fetchData = yield fetchAPI(url);
-  let items = fetchData.map((item) => {
+function mapResponse(response, favorites) {
+  return response.map((item) => {
     return {
       ...item,
       isFavorite:
@@ -41,9 +34,22 @@ function* apiCall(query = '', page = 1, favorites) {
         }) !== undefined,
     };
   });
+}
+
+function* apiCall(query = '', page = 1, favorites) {
+  const url =
+    query !== ''
+      ? getURL({ beer_name: query, page, per_page: PER_PAGE })
+      : getURL({ page, per_page: PER_PAGE });
+
+  // fetch api
+  // let fetchData = yield fetchAPI(url);
+  // let items = mapResponse(fetchData, favorites);
+
   // XMLHttpRequest api
-  // let xhrData = yield xhrAPI(url);
-  // let items = xhrData.map((item) => ({ ...item, isFavorite: false }));
+  let xhrData = yield xhrAPI(url);
+  let items = mapResponse(xhrData, favorites);
+
   if (items.length < PER_PAGE) yield put(reachedEnd());
   return items;
 }
@@ -51,6 +57,7 @@ function* apiCall(query = '', page = 1, favorites) {
 export function* fetchBeer(action) {
   const { query, favorites } = action.payload;
   const items = yield apiCall(query, 1, favorites);
+
   yield put(listBeer({ query, items }));
   yield put(setStatus({ status: STATE_STATUS_IDLE }));
 }
