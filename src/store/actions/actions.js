@@ -5,6 +5,8 @@ export const listBeer = createAction('LIST_BEER');
 
 export const listMoreBeer = createAction('LIST_MORE_BEER');
 
+export const clearBeer = createAction('CLEAR_LIST');
+
 // fetch
 export const fetchBeer = createAction('FETCH_BEER');
 
@@ -14,6 +16,8 @@ export const fetchMoreBeer = createAction('FETCH_MORE_BEER');
 export const setFilters = createAction('SET_FILTERS');
 
 export const setFilterStatus = createAction('SET_FILTER_STATUS');
+
+export const clearFilters = createAction('CLEAR_FILTERS');
 
 // favorites
 export const addFavorite = createAction('ADD_FAVORITE');

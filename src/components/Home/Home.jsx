@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { SearchBar } from './Searchbar/Searchbar';
 import { BeerList } from './BeerList/BeerList';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,7 +6,12 @@ import {
   STATE_STATUS_BUSY,
   STATE_STATUS_IDLE,
 } from '../../constants/stateConstants';
-import { fetchMoreBeer, setStatus } from '../../store/actions/actions';
+import {
+  clearBeer,
+  clearFilters,
+  fetchMoreBeer,
+  setStatus,
+} from '../../store/actions/actions';
 import {
   selectFavorites,
   selectPage,
@@ -33,6 +38,14 @@ export function Home() {
       dispatch(fetchMoreBeer({ query, page, favorites }));
     }
   }
+
+  // clean up on page change
+  useEffect(() => {
+    return () => {
+      dispatch(clearBeer());
+      dispatch(clearFilters());
+    };
+  }, [dispatch]);
 
   return (
     <main
