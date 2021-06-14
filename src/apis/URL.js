@@ -8,3 +8,7 @@ export default function getURL(params = {}) {
   }
   return url;
 }
+
+export function getSingleBeerURL(id) {
+  return `https://api.punkapi.com/v2/beers/${id}`;
+}

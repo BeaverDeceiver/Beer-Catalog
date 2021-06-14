@@ -1,4 +1,4 @@
-import GetURL from './URL';
+import { getSingleBeerURL } from './URL';
 
 function fetchAPI(url) {
   return fetch(url).then((resolve) => resolve.json());
@@ -6,7 +6,7 @@ function fetchAPI(url) {
 
 export default fetchAPI;
 
-export function fetchBeer(id) {
-  const url = GetURL({ id });
-  return fetchAPI(url);
+export function fetchSingleBeer(id) {
+  const url = getSingleBeerURL(id);
+  return fetchAPI(url).then((data) => data[0]);
 }
