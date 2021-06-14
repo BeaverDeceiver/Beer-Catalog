@@ -1,12 +1,8 @@
 import React from 'react';
-// import { useSelector } from 'react-redux';
-// import { selectFavorites } from '../../../store/selectors/selectors';
 
-import './favorites-item.css';
+import './FavoritesItem.css';
 export function FavoritesItem(props) {
   const { beer, handleToggleFavorite } = props;
-
-  // const favorites = useSelector(selectFavorites);
 
   return (
     <>

@@ -15,7 +15,7 @@ import {
 import { STATE_STATUS_BUSY } from '../../../constants/stateConstants';
 import { selectFavorites } from '../../../store/selectors/selectors';
 import { Filters } from '../Filters/Filters';
-import './searchbar.css';
+import './Searchbar.css';
 
 export function SearchBar() {
   const [query, setQuery] = useState('');
