@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, batch } from 'react-redux';
 import SearchIcon from '@material-ui/icons/Search';
 import {
   fetchBeer,
@@ -30,8 +30,10 @@ export function SearchBar() {
   const favorites = useSelector(selectFavorites);
 
   function handleSearch() {
-    dispatch(setStatus({ status: STATE_STATUS_BUSY }));
-    dispatch(fetchBeer({ query, favorites }));
+    batch(() => {
+      dispatch(setStatus({ status: STATE_STATUS_BUSY }));
+      dispatch(fetchBeer({ query, favorites }));
+    });
     textInput.current.blur();
     setDisplayFilters(true);
   }
@@ -55,8 +57,10 @@ export function SearchBar() {
       default:
         return;
     }
-    dispatch(setFilters({ filters: filter }));
-    dispatch(setFilterStatus({ filterStatus: displayFilters }));
+    batch(() => {
+      dispatch(setFilters({ filters: filter }));
+      dispatch(setFilterStatus({ filterStatus: displayFilters }));
+    });
     e.target.title = e.target.value;
   }
 

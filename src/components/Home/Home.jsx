@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { SearchBar } from './Searchbar/Searchbar';
 import { BeerList } from './BeerList/BeerList';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, batch } from 'react-redux';
 import {
   STATE_STATUS_BUSY,
   STATE_STATUS_IDLE,
@@ -34,16 +34,20 @@ export function Home() {
       !reachedEnd &&
       element.scrollHeight - element.scrollTop === element.clientHeight
     ) {
-      dispatch(setStatus({ status: STATE_STATUS_BUSY }));
-      dispatch(fetchMoreBeer({ query, page, favorites }));
+      batch(() => {
+        dispatch(setStatus({ status: STATE_STATUS_BUSY }));
+        dispatch(fetchMoreBeer({ query, page, favorites }));
+      });
     }
   }
 
   // clean up on page change
   useEffect(() => {
     return () => {
-      dispatch(clearBeer());
-      dispatch(clearFilters());
+      batch(() => {
+        dispatch(clearBeer());
+        dispatch(clearFilters());
+      });
     };
   }, [dispatch]);
 

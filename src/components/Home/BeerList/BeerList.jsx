@@ -1,7 +1,7 @@
 import { CircularProgress } from '@material-ui/core';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, batch } from 'react-redux';
 import { STATE_STATUS_BUSY } from '../../../constants/stateConstants';
 import { fetchBeer, setStatus } from '../../../store/actions/actions';
 import {
@@ -28,8 +28,10 @@ export function BeerList() {
   useEffect(() => {
     if (!didLoad) {
       setDidLoad(true);
-      dispatch(setStatus({ status: STATE_STATUS_BUSY }));
-      dispatch(fetchBeer({ query: '', favorites }));
+      batch(() => {
+        dispatch(setStatus({ status: STATE_STATUS_BUSY }));
+        dispatch(fetchBeer({ query: '', favorites }));
+      });
     }
   }, [didLoad, dispatch, favorites]);
 
