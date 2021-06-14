@@ -81,6 +81,7 @@ export function Details() {
                 </div>
                 <p className="properties__value">{beer.abv}</p>
               </article>
+
               <article className="properties__row">
                 <div className="properties__abbreviation">
                   <p>IBU</p>
@@ -92,6 +93,7 @@ export function Details() {
                     <InfoOutlinedIcon className="properties__tooltip-icon" />
                   </Tooltip>
                 </div>
+
                 <p className="properties__value">{beer.ibu}</p>
               </article>
               <article className="properties__row">
