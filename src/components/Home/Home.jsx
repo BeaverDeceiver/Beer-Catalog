@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { SearchBar } from './Searchbar/Searchbar';
 import { BeerList } from './BeerList/BeerList';
 import { useDispatch, useSelector, batch } from 'react-redux';
@@ -19,27 +19,35 @@ import {
   selectReachedEnd,
   selectStatus,
 } from '../../store/selectors/selectors';
+
 import _ from 'lodash';
+
 export function Home() {
-  const dispatch = useDispatch();
   const status = useSelector(selectStatus);
   const query = useSelector(selectQuery);
   const page = useSelector(selectPage);
   const reachedEnd = useSelector(selectReachedEnd);
   const favorites = useSelector(selectFavorites);
+
+  const dispatch = useDispatch();
+
   function handleScroll(e) {
     let element = e.target;
+    console.log('f call');
     if (
       status === STATE_STATUS_IDLE &&
       !reachedEnd &&
       element.scrollHeight - element.scrollTop === element.clientHeight
     ) {
+      console.log('end');
       batch(() => {
         dispatch(setStatus({ status: STATE_STATUS_BUSY }));
         dispatch(fetchMoreBeer({ query, page, favorites }));
       });
     }
   }
+
+  const throttledScroll = useCallback(_.throttle(handleScroll, 100), []);
 
   // clean up on page change
   useEffect(() => {
@@ -52,10 +60,7 @@ export function Home() {
   }, [dispatch]);
 
   return (
-    <main
-      className="scroll-area scroll-area_home"
-      onScroll={_.throttle(handleScroll, 100)}
-    >
+    <main className="scroll-area scroll-area_home" onScroll={throttledScroll}>
       <SearchBar />
       <BeerList />
     </main>
