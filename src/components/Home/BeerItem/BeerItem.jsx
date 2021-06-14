@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleFavorite } from '../../../store/actions/actions';
 import { selectFavorites } from '../../../store/selectors/selectors';
+import './beer-item.css';
 
 export function BeerItem(props) {
   const { beer } = props;

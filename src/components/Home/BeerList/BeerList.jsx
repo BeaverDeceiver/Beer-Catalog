@@ -12,6 +12,7 @@ import {
   selectFavorites,
 } from '../../../store/selectors/selectors';
 import { BeerItem } from '../BeerItem/BeerItem';
+import './beer-list.css';
 
 export function BeerList() {
   const beerItems = useSelector(selectBeer);

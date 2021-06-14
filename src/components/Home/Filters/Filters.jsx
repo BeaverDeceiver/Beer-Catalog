@@ -8,6 +8,8 @@ import {
   IBU_MIN,
 } from '../../../constants/beerConstants';
 
+import './filters.css';
+
 export function Filters(props) {
   const { filter, handleSlider } = props;
 

@@ -10,6 +10,7 @@ import InboxIcon from '@material-ui/icons/Inbox';
 
 import { Link } from 'react-router-dom';
 
+import './header.css';
 export default function TemporaryDrawer() {
   const [state, setState] = useState({ isOpen: false });
 

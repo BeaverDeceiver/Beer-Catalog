@@ -48,29 +48,3 @@
   align-items: center;
   justify-content: center;
 }
-
-.filter-slider {
-  width: 200px;
-  margin-left: 15px;
-}
-
-.filter__header {
-  font-size: 16px;
-}
-
-.filter-sliders__article {
-  display: flex;
-
-  width: 100%;
-  margin-bottom: 15px;
-
-  justify-content: space-between;
-}
-
-.filter-sliders {
-  width: 600px;
-}
-
-.slider-section {
-  display: flex;
-}

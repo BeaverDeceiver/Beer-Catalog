@@ -7,6 +7,8 @@ import { FAVORITES_PER_PAGE } from '../../../constants/common';
 import { useState } from 'react';
 import { toggleFavorite } from '../../../store/actions/actions';
 
+import './favorites-list.css';
+
 export function FavoritesList() {
   const favorites = useSelector(selectFavorites);
   const [page, setPage] = useState(1);
