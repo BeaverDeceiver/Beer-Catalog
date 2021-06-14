@@ -1,13 +1,15 @@
 import { CircularProgress } from '@material-ui/core';
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { STATE_STATUS_BUSY } from '../../../constants/stateConstants';
-
+import { fetchBeer, setStatus } from '../../../store/actions/actions';
 import {
   selectBeer,
   selectFilters,
   selectFilterStatus,
   selectStatus,
+  selectFavorites,
 } from '../../../store/selectors/selectors';
 import { BeerItem } from '../BeerItem/BeerItem';
 
@@ -16,6 +18,19 @@ export function BeerList() {
   const shouldFilter = useSelector(selectFilterStatus);
   const filters = useSelector(selectFilters);
   const status = useSelector(selectStatus);
+  const favorites = useSelector(selectFavorites);
+
+  const dispatch = useDispatch();
+
+  const [didLoad, setDidLoad] = useState(false);
+
+  useEffect(() => {
+    if (!didLoad) {
+      setDidLoad(true);
+      dispatch(setStatus({ status: STATE_STATUS_BUSY }));
+      dispatch(fetchBeer({ query: '', favorites }));
+    }
+  }, [didLoad, dispatch, favorites]);
 
   const shownItems = shouldFilter
     ? beerItems.filter((item) => {
