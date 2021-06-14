@@ -15,7 +15,15 @@ import {
   setStatus,
   removeFavorite,
   addFavorite,
+  clearBeer,
+  clearFilters,
 } from '../actions/actions';
+
+const defaultFilters = {
+  abv: ALCOHOL_VOLUME_MIN,
+  ibu: IBU_MIN,
+  ebc: EBC_COLOR_MIN,
+};
 
 const defaultState = {
   query: '',
@@ -24,7 +32,7 @@ const defaultState = {
   beer: [],
   favorites: [],
   page: 1,
-  filters: { abv: ALCOHOL_VOLUME_MIN, ibu: IBU_MIN, ebc: EBC_COLOR_MIN },
+  filters: defaultFilters,
   filterStatus: false,
 };
 
@@ -47,6 +55,12 @@ const beerSearch = handleActions(
         page: state.page + 1,
       };
     },
+    [clearBeer]: (state, action) => {
+      return {
+        ...state,
+        beer: [],
+      };
+    },
     // filters
     [setFilters]: (state, action) => {
       return {
@@ -56,6 +70,13 @@ const beerSearch = handleActions(
     },
     [setFilterStatus]: (state, action) => {
       return { ...state, filterStatus: action.payload.filterStatus };
+    },
+    [clearFilters]: (state, action) => {
+      return {
+        ...state,
+        filters: defaultFilters,
+        filterStatus: false,
+      };
     },
     // favorites
     [removeFavorite]: (state, action) => {

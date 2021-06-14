@@ -1,0 +1,19 @@
+.favorites__header {
+  margin: 22px 0;
+
+  text-align: center;
+
+  font-weight: 400;
+}
+
+.favorites-list {
+  margin: 35px 200px 0 100px;
+}
+
+.favorites-list::-webkit-scrollbar {
+  display: none;
+}
+
+.pagination {
+  margin-bottom: 56px;
+}
