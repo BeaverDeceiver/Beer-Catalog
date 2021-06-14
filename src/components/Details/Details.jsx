@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import Tooltip from '@material-ui/core/Tooltip';
+import { LinearProgress } from '@material-ui/core';
 import './Details.css';
 
 export function Details() {
@@ -16,9 +17,14 @@ export function Details() {
   // const favorites = useSelector(selectFavorites);
 
   const [beer, setBeer] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
   // const [isFavorite, setIsFavorite] = useState(true);
   useEffect(() => {
-    fetchSingleBeer(beerId).then((data) => setBeer(data));
+    console.log('effect');
+    fetchSingleBeer(beerId).then((data) => {
+      setBeer(data);
+      setIsLoading(false);
+    });
     // console.log(favorites);
     // if (
     //   favorites.find((f_item) => {
@@ -32,6 +38,9 @@ export function Details() {
     // console.log(beer);
   }, [beerId]);
 
+  if (isLoading) {
+    return <LinearProgress />;
+  }
   return (
     <>
       <section className="details scroll-area">
