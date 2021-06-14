@@ -33,13 +33,11 @@ export function Home() {
 
   function handleScroll(e) {
     let element = e.target;
-    console.log('f call');
     if (
       status === STATE_STATUS_IDLE &&
       !reachedEnd &&
       element.scrollHeight - element.scrollTop === element.clientHeight
     ) {
-      console.log('end');
       batch(() => {
         dispatch(setStatus({ status: STATE_STATUS_BUSY }));
         dispatch(fetchMoreBeer({ query, page, favorites }));
