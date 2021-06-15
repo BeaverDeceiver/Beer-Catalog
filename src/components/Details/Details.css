@@ -153,12 +153,15 @@
 }
 
 .ingredients__table {
-  width: 300px;
+  min-width: 300px;
 }
 
 .ingredients__row {
-  height: 65px;
-  padding: 0px 15px;
+  padding: 15px 15px;
+}
+
+.ingredient {
+  margin: auto 0;
 }
 
 .ingredient__group-name {
@@ -166,6 +169,12 @@
 
   font-weight: 600;
   font-size: 15px;
+  margin: 0px 0px;
+}
+
+.ingredient__value {
+  margin: 15px 0px 0px;
+  font-size: 14px;
 }
 
 /* general */

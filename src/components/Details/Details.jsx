@@ -136,15 +136,47 @@ export function Details() {
           <section className="table-section">
             <article className="ingredients">
               <h1 className="ingredients__header">Ingredients</h1>
+
               <section className="ingredients__table table">
-                {Object.entries(beer.ingredients).map(([key, value]) => {
-                  return (
-                    <article key={key} className="ingredients__row row">
-                      <h3 className="ingredient__group-name">{key}</h3>
-                      {/* {!value.isArray() ? } */}
-                    </article>
-                  );
-                })}
+                <article className="ingredients__row row">
+                  <section className="ingredient ingredient_water">
+                    <h3 className="ingredient__group-name ">Water</h3>
+                    <p className="ingredient__value">{`${beer.boil_volume.value} ${beer.boil_volume.unit}`}</p>
+                  </section>
+                </article>
+
+                <article className="ingredients__row row">
+                  <section className="ingredient ingredient_malt">
+                    <h3 className="ingredient__group-name">Malt</h3>
+                    {beer.ingredients.malt.map((malt) => (
+                      <p
+                        key={malt.name}
+                        className="ingredient__value"
+                      >{`"${malt.name}" - ${malt.amount.value} ${malt.amount.unit}`}</p>
+                    ))}
+                  </section>
+                </article>
+
+                <article className="ingredients__row row">
+                  <section className="ingredient ingredient_hops">
+                    <h3 className="ingredient__group-name">Hops</h3>
+                    {beer.ingredients.hops.map((hop) => (
+                      <p
+                        key={`${hop.name}${hop.add}`}
+                        className="ingredient__value"
+                      >{`"${hop.name}" - ${hop.amount.value} ${hop.amount.unit}, add when ${hop.add}`}</p>
+                    ))}
+                  </section>
+                </article>
+
+                <article className="ingredients__row row">
+                  <section className="ingredient ingredient_hops">
+                    <h3 className="ingredient__group-name">Yeast</h3>
+                    <p className="ingredient__value">
+                      {beer.ingredients.yeast}
+                    </p>
+                  </section>
+                </article>
               </section>
             </article>
 
