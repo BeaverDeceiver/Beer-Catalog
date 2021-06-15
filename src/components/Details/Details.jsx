@@ -21,7 +21,6 @@ export function Details() {
 
   const [beer, setBeer] = useState({});
   const [isInitiallyLoading, setIsInitiallyLoading] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
   const [isFavorite, setIsFavorite] = useState(true);
 
   useEffect(() => {
@@ -36,9 +35,7 @@ export function Details() {
   }, [beerId, favorites]);
 
   function handleToggleFavorite() {
-    setIsLoading(true);
     dispatch(toggleFavoriteDetails({ favorites, beer }));
-    setIsLoading(false);
   }
 
   if (isInitiallyLoading) {
@@ -51,7 +48,6 @@ export function Details() {
 
   return (
     <>
-      {isLoading ? <LinearProgress /> : null}
       <section className="details scroll-area">
         <section className="details__upper">
           <article className="details__general-info">
