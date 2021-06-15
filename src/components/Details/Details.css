@@ -1,7 +1,7 @@
 /* root */
 .details {
   height: calc(100vh - 55px - 44px);
-  margin: 44px 65px 65px;
+  padding: 44px 65px 65px;
 }
 
 /* upper */
@@ -52,7 +52,7 @@
 
 .details__description {
   margin: 0;
-
+  width: 70vw;
   font-size: 18px;
 }
 
@@ -77,27 +77,6 @@
   width: 300px;
 }
 
-.properties__table,
-.properties__row,
-.food-pairing__table,
-.food-pairing__row {
-  border-width: 1px;
-  border-style: solid;
-  border-color: #dddddd;
-}
-
-.properties__table,
-.food-pairing__table {
-  border-radius: 10px;
-}
-
-.properties__row,
-.food-pairing__row {
-  border-top: none;
-  border-right: none;
-  border-left: none;
-}
-
 .properties__row {
   display: flex;
 
@@ -108,11 +87,6 @@
 
   align-content: center;
   justify-content: space-between;
-}
-
-.properties__row:last-child,
-.food-pairing__row:last-child {
-  border-bottom: none;
 }
 
 .properties__abbreviation {
@@ -158,20 +132,40 @@
   padding: 0px 25px;
   display: flex;
   align-items: center;
-  /* margin: auto 0px; */
 }
 
 /* lower */
 .details__bottom {
   width: 60vw;
+  margin-bottom: 45px;
 }
 
 .brewing {
   margin: 60px 0 35px;
 }
 
+.brewing__tips {
+  font-size: 18px;
+}
+
 .ingredients {
   margin-right: 85px;
+}
+
+.ingredients__table {
+  width: 300px;
+}
+
+.ingredients__row {
+  height: 65px;
+  padding: 0px 15px;
+}
+
+.ingredient__group-name {
+  text-transform: capitalize;
+
+  font-weight: 600;
+  font-size: 15px;
 }
 
 /* general */
@@ -186,5 +180,32 @@
   text-transform: capitalize;
 
   font-size: 32px;
+  font-weight: 600;
+}
+
+.table {
+  border-radius: 10px;
+}
+
+.table,
+.row {
+  border-width: 1px;
+  border-style: solid;
+  border-color: #dddddd;
+}
+
+.row {
+  border-top: none;
+  border-right: none;
+  border-left: none;
+}
+
+.row:last-child,
+.row:last-child {
+  border-bottom: none;
+}
+
+.error_404 {
+  text-align: center;
   font-weight: 600;
 }
