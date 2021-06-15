@@ -199,13 +199,19 @@ export function Details() {
                   <p
                     key={`${mash.temp.value}${mash.duration}`}
                     className="method__value"
-                  >{`${mash.duration} minutes at ${mash.temp.value} °${mash.temp.unit}`}</p>
+                  >{`${mash.duration ? mash.duration : 'N/A'} minutes at ${
+                    mash.temp.value ? mash.temp.value : 'N/A'
+                  } °${mash.temp.unit}`}</p>
                 ))}
               </section>
 
               <section className="method__section fermentation">
                 <h3 className="method__name">Fermentation</h3>
-                <p className="method__value">{`Perform at ${beer.method.fermentation.temp.value} °${beer.method.fermentation.temp.unit}`}</p>
+                <p className="method__value">{`Perform at ${
+                  beer.method.fermentation.temp.value
+                    ? beer.method.fermentation.temp.value
+                    : 'N/A'
+                } °${beer.method.fermentation.temp.unit}`}</p>
               </section>
 
               <section className="method__section twist">
