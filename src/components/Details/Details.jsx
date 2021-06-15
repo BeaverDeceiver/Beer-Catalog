@@ -3,42 +3,45 @@ import { fetchSingleBeer } from '../../apis/Fetch';
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
-// import { useSelector } from 'react-redux';
-// import { selectFavorites } from '../../store/selectors/selectors';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectFavorites } from '../../store/selectors/selectors';
 
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import Tooltip from '@material-ui/core/Tooltip';
 import { LinearProgress } from '@material-ui/core';
 import './Details.css';
+import { toggleFavoriteDetails } from '../../store/actions/actions';
 
 export function Details() {
   const { beerId } = useParams();
 
-  // const favorites = useSelector(selectFavorites);
+  const dispatch = useDispatch();
+
+  const favorites = useSelector(selectFavorites);
 
   const [beer, setBeer] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
-  // const [isFavorite, setIsFavorite] = useState(true);
+  const [isInitiallyLoading, setIsInitiallyLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(true);
+
   useEffect(() => {
     fetchSingleBeer(beerId).then((data) => {
       setBeer(data);
-      console.log(data);
-      setIsLoading(false);
+      setIsInitiallyLoading(false);
     });
-    // console.log(favorites);
-    // if (
-    //   favorites.find((f_item) => {
-    //     return f_item.id === beerId;
-    //   })
-    // ) {
-    //   setBeer({ ...beer, isFavorite: true });
-    // } else {
-    //   setBeer({ ...beer, isFavorite: false });
-    // }
-    // console.log(beer);
   }, [beerId]);
 
-  if (isLoading) {
+  useEffect(() => {
+    setIsFavorite(favorites.find((item) => item.id === Number(beerId)));
+  }, [beerId, favorites]);
+
+  function handleToggleFavorite() {
+    setIsLoading(true);
+    dispatch(toggleFavoriteDetails({ favorites, beer }));
+    setIsLoading(false);
+  }
+
+  if (isInitiallyLoading) {
     return <LinearProgress />;
   }
 
@@ -48,13 +51,17 @@ export function Details() {
 
   return (
     <>
+      {isLoading ? <LinearProgress /> : null}
       <section className="details scroll-area">
         <section className="details__upper">
           <article className="details__general-info">
             <h1 className="details__name">{beer.name}</h1>
             <h2 className="details__tagline">{beer.tagline}</h2>
-            <button className="details__button button">
-              {/* {isFavorite ? 'Remove from Favorites' : 'Add To Favorites'} */}
+            <button
+              className="details__favorite-button button"
+              onClick={handleToggleFavorite}
+            >
+              {isFavorite ? 'Remove from Favorites' : 'Add To Favorites'}
             </button>
             <p className="details__description">{beer.description}</p>
           </article>

@@ -30,7 +30,7 @@
   font-style: italic;
 }
 
-.details__button {
+.details__favorite-button {
   width: 160px;
   height: 40px;
   margin: 18px 0 21px;
@@ -44,11 +44,11 @@
   font-size: 12px;
 }
 
-.details__button:hover {
+.details__favorite-button:hover {
   background-color: #3686d6;
 }
 
-.details__button:active {
+.details__favorite-button:active {
   background-color: #398fe6;
 }
 
