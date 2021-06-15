@@ -84,7 +84,9 @@ export function Details() {
                   </Tooltip>
                 </div>
 
-                <p className="properties__value">{beer.abv.toFixed(1)}</p>
+                <p className="properties__value">
+                  {beer.abv ? beer.abv.toFixed(1) : 'N/A'}
+                </p>
               </article>
 
               <article className="properties__row row">
@@ -99,7 +101,9 @@ export function Details() {
                   </Tooltip>
                 </div>
 
-                <p className="properties__value">{beer.ibu.toFixed(1)}</p>
+                <p className="properties__value">
+                  {beer.ibu ? beer.ibu.toFixed(1) : 'N/A'}
+                </p>
               </article>
               <article className="properties__row row">
                 <div className="properties__abbreviation">
@@ -109,7 +113,9 @@ export function Details() {
                   </Tooltip>
                 </div>
 
-                <p className="properties__value">{beer.ebc.toFixed(1)}</p>
+                <p className="properties__value">
+                  {beer.ebc ? beer.ebc.toFixed(1) : 'N/A'}
+                </p>
               </article>
             </section>
           </article>
@@ -160,9 +166,9 @@ export function Details() {
                 <article className="ingredients__row row">
                   <section className="ingredient ingredient_hops">
                     <h3 className="ingredient__group-name">Hops</h3>
-                    {beer.ingredients.hops.map((hop) => (
+                    {beer.ingredients.hops.map((hop, index) => (
                       <p
-                        key={`${hop.name}${hop.add}`}
+                        key={`${hop.name}${hop.add}${index}`}
                         className="ingredient__value"
                       >{`"${hop.name}" - ${hop.amount.value} ${hop.amount.unit}, add when ${hop.add}`}</p>
                     ))}
@@ -182,6 +188,16 @@ export function Details() {
 
             <article className="method">
               <h1 className="method__header">Method</h1>
+
+              <section className="mash">
+                <h3 className="method__name">Mash</h3>
+                {beer.method.mash_temp.map((mash) => (
+                  <p
+                    key={`${mash.temp.value}${mash.duration}`}
+                    className="method__value"
+                  >{`${mash.duration} minutes at ${mash.temp.value} °${mash.temp.unit}`}</p>
+                ))}
+              </section>
             </article>
           </section>
         </section>
