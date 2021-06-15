@@ -53,8 +53,9 @@
 }
 
 .details__description {
-  margin: 0;
   width: 70vw;
+  margin: 0;
+
   font-size: 18px;
 }
 
@@ -136,9 +137,11 @@
 }
 
 .food-pairing__row {
-  height: 60px;
-  padding: 0px 25px;
   display: flex;
+
+  height: 60px;
+  padding: 0 25px;
+
   align-items: center;
 }
 
@@ -179,15 +182,17 @@
 }
 
 .ingredient__group-name {
+  margin: 0 0;
+
   text-transform: capitalize;
 
-  font-weight: 600;
   font-size: 16px;
-  margin: 0px 0px;
+  font-weight: 600;
 }
 
 .ingredient__value {
-  margin: 15px 0px 0px;
+  margin: 15px 0 0;
+
   font-size: 14px;
 }
 
@@ -201,17 +206,20 @@
 }
 
 .method__name {
+  margin: 0 0;
+
   text-transform: capitalize;
 
-  font-weight: 600;
   font-size: 16px;
-  margin: 0px 0px;
+  font-weight: 600;
 }
 
 .method__value {
-  margin: 10px 0px 0px;
+  margin: 10px 0 0;
+
   font-size: 15px;
 }
+
 /* general */
 /* ------------------------------------------------- */
 .table-section {
@@ -255,5 +263,6 @@
 
 .error_404 {
   text-align: center;
+
   font-weight: 600;
 }
