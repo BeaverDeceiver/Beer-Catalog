@@ -22,6 +22,7 @@ export function Details() {
   useEffect(() => {
     fetchSingleBeer(beerId).then((data) => {
       setBeer(data);
+      console.log(data);
       setIsLoading(false);
     });
     // console.log(favorites);
@@ -189,7 +190,7 @@ export function Details() {
             <article className="method">
               <h1 className="method__header">Method</h1>
 
-              <section className="mash">
+              <section className="method__section mash">
                 <h3 className="method__name">Mash</h3>
                 {beer.method.mash_temp.map((mash) => (
                   <p
@@ -197,6 +198,20 @@ export function Details() {
                     className="method__value"
                   >{`${mash.duration} minutes at ${mash.temp.value} °${mash.temp.unit}`}</p>
                 ))}
+              </section>
+
+              <section className="method__section fermentation">
+                <h3 className="method__name">Fermentation</h3>
+                <p className="method__value">{`Perform at ${beer.method.fermentation.temp.value} °${beer.method.fermentation.temp.unit}`}</p>
+              </section>
+
+              <section className="method__section twist">
+                <h3 className="method__name">Twist</h3>
+                <p className="method__value">
+                  {beer.method.twist
+                    ? beer.method.twist
+                    : 'No twist for this one'}
+                </p>
               </section>
             </article>
           </section>

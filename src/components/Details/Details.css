@@ -1,10 +1,12 @@
 /* root */
+/* ------------------------------------------------- */
 .details {
   height: calc(100vh - 55px - 44px);
   padding: 44px 65px 65px;
 }
 
 /* upper */
+/* ------------------------------------------------- */
 .details__upper {
   display: flex;
 
@@ -61,16 +63,17 @@
 }
 
 /* middle */
+/* ------------------------------------------------- */
 .details__middle {
   margin-top: 25px;
 }
 
-.table-section {
-  display: flex;
-}
-
 .properties {
   margin-right: 105px;
+}
+
+.properties__header {
+  margin-bottom: 25px;
 }
 
 .properties__table {
@@ -123,6 +126,11 @@
   justify-content: center;
 }
 
+/* ------------------------- */
+.food-pairing__header {
+  margin-bottom: 25px;
+}
+
 .food-pairing__table {
   width: 450px;
 }
@@ -135,6 +143,7 @@
 }
 
 /* lower */
+/* ------------------------------------------------- */
 .details__bottom {
   width: 60vw;
   margin-bottom: 45px;
@@ -148,8 +157,13 @@
   font-size: 18px;
 }
 
+/* ------------------------- */
 .ingredients {
   margin-right: 85px;
+}
+
+.ingredients__header {
+  margin-bottom: 24px;
 }
 
 .ingredients__table {
@@ -168,7 +182,7 @@
   text-transform: capitalize;
 
   font-weight: 600;
-  font-size: 15px;
+  font-size: 16px;
   margin: 0px 0px;
 }
 
@@ -177,14 +191,39 @@
   font-size: 14px;
 }
 
+/* ------------------------- */
+.method__section {
+  margin-bottom: 30px;
+}
+
+.method__header {
+  margin-bottom: 40px;
+}
+
+.method__name {
+  text-transform: capitalize;
+
+  font-weight: 600;
+  font-size: 16px;
+  margin: 0px 0px;
+}
+
+.method__value {
+  margin: 10px 0px 0px;
+  font-size: 15px;
+}
 /* general */
+/* ------------------------------------------------- */
+.table-section {
+  display: flex;
+}
+
 .properties__header,
 .food-pairing__header,
 .brewing__header,
 .ingredients__header,
 .method__header {
-  margin: 0;
-  margin-bottom: 24px;
+  margin-top: 0;
 
   text-transform: capitalize;
 
