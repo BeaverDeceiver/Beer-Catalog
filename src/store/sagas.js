@@ -2,10 +2,12 @@ import { all, put, takeEvery } from 'redux-saga/effects';
 
 import {
   addFavorite,
+  addFavoriteDetails,
   listBeer,
   listMoreBeer,
   reachedEnd,
   removeFavorite,
+  removeFavoriteDetails,
   setStatus,
 } from '../store/actions/actions';
 
@@ -56,10 +58,20 @@ export function* fetchMoreBeer(action) {
 
 export function* toggleFavorite(action) {
   const { favorites, id } = action.payload;
+
   if (!favorites.find((item) => item.id === id)) {
     yield put(addFavorite({ id }));
   } else {
     yield put(removeFavorite({ id }));
+  }
+}
+
+export function* toggleFavoriteDetails(action) {
+  const { favorites, beer } = action.payload;
+  if (!favorites.find((item) => item.id === beer.id)) {
+    yield put(addFavoriteDetails({ beer }));
+  } else {
+    yield put(removeFavoriteDetails({ beer }));
   }
 }
 
@@ -75,6 +87,15 @@ export function* watchToggleFavorite() {
   yield takeEvery('TOGGLE_FAVORITE', toggleFavorite);
 }
 
+export function* watchToggleFavoriteDetails() {
+  yield takeEvery('TOGGLE_FAVORITE_DETAILS', toggleFavoriteDetails);
+}
+
 export default function* rootSaga() {
-  yield all([watchFetchBeer(), watchFetchMoreBeer(), watchToggleFavorite()]);
+  yield all([
+    watchFetchBeer(),
+    watchFetchMoreBeer(),
+    watchToggleFavorite(),
+    watchToggleFavoriteDetails(),
+  ]);
 }

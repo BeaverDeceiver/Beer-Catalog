@@ -17,6 +17,8 @@ import {
   addFavorite,
   clearBeer,
   clearFilters,
+  addFavoriteDetails,
+  removeFavoriteDetails,
 } from '../actions/actions';
 
 const defaultFilters = {
@@ -98,6 +100,23 @@ const beerSearch = handleActions(
         ),
         favorites: state.favorites.concat(
           state.beer.find((item) => item.id === action.payload.id)
+        ),
+      };
+    },
+    [addFavoriteDetails]: (state, action) => {
+      return {
+        ...state,
+        favorites: state.favorites.concat({
+          ...action.payload.beer,
+          isFavorite: true,
+        }),
+      };
+    },
+    [removeFavoriteDetails]: (state, action) => {
+      return {
+        ...state,
+        favorites: state.favorites.filter(
+          (item) => item.id !== action.payload.beer.id
         ),
       };
     },
