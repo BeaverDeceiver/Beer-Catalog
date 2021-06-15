@@ -20,7 +20,6 @@ export function Details() {
   const [isLoading, setIsLoading] = useState(true);
   // const [isFavorite, setIsFavorite] = useState(true);
   useEffect(() => {
-    console.log('effect');
     fetchSingleBeer(beerId).then((data) => {
       setBeer(data);
       setIsLoading(false);
@@ -41,6 +40,11 @@ export function Details() {
   if (isLoading) {
     return <LinearProgress />;
   }
+
+  if (!beer) {
+    return <h1 className="error_404">Error: Beer not found</h1>;
+  }
+
   return (
     <>
       <section className="details scroll-area">
@@ -67,8 +71,8 @@ export function Details() {
           <article className="properties">
             <h1 className="properties__header">Properties</h1>
 
-            <section className="properties__table">
-              <article className="properties__row">
+            <section className="properties__table table">
+              <article className="properties__row row">
                 <div className="properties__abbreviation">
                   <p>ABV</p>
                   <Tooltip
@@ -79,10 +83,11 @@ export function Details() {
                     <InfoOutlinedIcon className="properties__tooltip-icon" />
                   </Tooltip>
                 </div>
-                <p className="properties__value">{beer.abv}</p>
+
+                <p className="properties__value">{beer.abv.toFixed(1)}</p>
               </article>
 
-              <article className="properties__row">
+              <article className="properties__row row">
                 <div className="properties__abbreviation">
                   <p>IBU</p>
                   <Tooltip
@@ -94,16 +99,17 @@ export function Details() {
                   </Tooltip>
                 </div>
 
-                <p className="properties__value">{beer.ibu}</p>
+                <p className="properties__value">{beer.ibu.toFixed(1)}</p>
               </article>
-              <article className="properties__row">
+              <article className="properties__row row">
                 <div className="properties__abbreviation">
                   <p>EBC</p>
                   <Tooltip enterDelay={20} placement="top" title="Color by EBC">
                     <InfoOutlinedIcon className="properties__tooltip-icon" />
                   </Tooltip>
                 </div>
-                <p className="properties__value">{beer.ebc}</p>
+
+                <p className="properties__value">{beer.ebc.toFixed(1)}</p>
               </article>
             </section>
           </article>
@@ -111,9 +117,11 @@ export function Details() {
           <article className="food-pairing">
             <h1 className="food-pairing__header">Food Pairing</h1>
 
-            <section className="food-pairing__table">
+            <section className="food-pairing__table table">
               {beer.food_pairing.map((item) => (
-                <article className="food-pairing__row">{item}</article>
+                <article key={item} className="food-pairing__row row">
+                  {item}
+                </article>
               ))}
             </section>
           </article>
@@ -128,6 +136,16 @@ export function Details() {
           <section className="table-section">
             <article className="ingredients">
               <h1 className="ingredients__header">Ingredients</h1>
+              <section className="ingredients__table table">
+                {Object.entries(beer.ingredients).map(([key, value]) => {
+                  return (
+                    <article key={key} className="ingredients__row row">
+                      <h3 className="ingredient__group-name">{key}</h3>
+                      {/* {!value.isArray() ? } */}
+                    </article>
+                  );
+                })}
+              </section>
             </article>
 
             <article className="method">
