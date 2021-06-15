@@ -31,7 +31,7 @@ export function Home() {
 
   const dispatch = useDispatch();
 
-  function handleScroll(e) {
+  const throttledScrollHandle = _.throttle((e) => {
     let element = e.target;
     if (
       status === STATE_STATUS_IDLE &&
@@ -43,9 +43,11 @@ export function Home() {
         dispatch(fetchMoreBeer({ query, page, favorites }));
       });
     }
-  }
+  }, 100);
 
-  const throttledScroll = useCallback(_.throttle(handleScroll, 100), []);
+  const throttledScroll = useCallback(throttledScrollHandle, [
+    throttledScrollHandle,
+  ]);
 
   // clean up on page change
   useEffect(() => {
