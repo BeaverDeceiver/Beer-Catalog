@@ -28,10 +28,13 @@ export default function TemporaryDrawer() {
   return (
     <section className="header">
       <Fragment key={'left'}>
-        <Button onClick={toggleDrawer(true)}>
-          <DehazeIcon className="drawer__button" />
-        </Button>
-        <h1 className="header__caption">Beer catalog</h1>
+        <div>
+          <Button onClick={toggleDrawer(true)}>
+            <DehazeIcon className="drawer__button" />
+          </Button>
+
+          <h1 className="header__caption">Beer catalog</h1>
+        </div>
         <Drawer
           anchor={'left'}
           open={state.isOpen}
@@ -58,6 +61,16 @@ export default function TemporaryDrawer() {
           </List>
         </Drawer>
       </Fragment>
+
+      <article className="header__user-area">
+        <Link to="/signin">
+          <button className="button_sign-in button">Sign In</button>
+        </Link>
+
+        <Link to="/signup">
+          <button className="button_sign-up button">Sign Up</button>
+        </Link>
+      </article>
     </section>
   );
 }
