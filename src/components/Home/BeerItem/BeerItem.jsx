@@ -4,6 +4,8 @@ import { toggleFavorite } from '../../../store/actions/actions';
 import { selectFavorites } from '../../../store/selectors/selectors';
 import './BeerItem.css';
 
+import { Link } from 'react-router-dom';
+
 export function BeerItem(props) {
   const { beer } = props;
   const dispatch = useDispatch();
@@ -28,9 +30,11 @@ export function BeerItem(props) {
           <p className="beer-item__tagline">{beer.tagline}</p>
         </section>
         <section>
-          <button className="beer-item__button button button_transparent">
-            Open
-          </button>
+          <Link to={`/beer/${beer.id}`}>
+            <button className="beer-item__button button button_transparent">
+              Open
+            </button>
+          </Link>
           <button
             className="beer-item__button button button_transparent"
             onClick={handleToggleFavorite}

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './FavoritesItem.css';
 export function FavoritesItem(props) {
@@ -13,9 +14,11 @@ export function FavoritesItem(props) {
           <p className="favorite-item__description">{beer.description}</p>
         </section>
         <section className="favorite-item__buttons">
-          <button className="favorite-item__button button button_transparent">
-            Open
-          </button>
+          <Link to={`/beer/${beer.id}`}>
+            <button className="favorite-item__button button button_transparent">
+              Open
+            </button>
+          </Link>
           <button
             className="favorite-item__button button button_transparent"
             onClick={() => handleToggleFavorite(beer)}

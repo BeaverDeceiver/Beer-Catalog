@@ -26,6 +26,12 @@ export const toggleFavorite = createAction('TOGGLE_FAVORITE');
 
 export const removeFavorite = createAction('REMOVE_FAVORITE');
 
+export const toggleFavoriteDetails = createAction('TOGGLE_FAVORITE_DETAILS');
+
+export const addFavoriteDetails = createAction('ADD_FAVORITE_DETAILS');
+
+export const removeFavoriteDetails = createAction('REMOVE_FAVORITE_DETAILS');
+
 // status
 export const setStatus = createAction('SET_STATUS');
 
