@@ -74,7 +74,7 @@
   flex-direction: column;
 
   min-width: 350px;
-  margin-bottom: 20px;
+  padding-bottom: 20px;
 }
 
 .form__buttons-area {
@@ -131,4 +131,10 @@
 
 .form__button_sign-in:hover {
   color: #0080ff;
+}
+
+.form__error-message {
+  color: #c86c10;
+  /* color: #b02121; */
+  font-size: 12px;
 }
