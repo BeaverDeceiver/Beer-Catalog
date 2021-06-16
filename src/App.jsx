@@ -4,6 +4,8 @@ import { Home } from './components/Home/Home';
 import { Favorites } from './components//Favorites/Favorites';
 import './App.css';
 import { Details } from './components/Details/Details';
+import { SignIn } from './components/SignIn/SignIn';
+import { SignUp } from './components/SignUp/SignUp';
 function App() {
   return (
     <>
@@ -15,6 +17,8 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route path="/favorites" component={Favorites} />
           <Route path="/beer/:beerId" component={Details} />
+          <Route path="/signin" component={SignIn} />
+          <Route path="/signup" component={SignUp} />
         </div>
       </Router>
     </>
