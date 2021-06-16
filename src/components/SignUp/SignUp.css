@@ -1,0 +1,81 @@
+.sign-up__header {
+  margin: 22px 0;
+
+  text-align: center;
+
+  font-weight: 400;
+}
+
+.sign-up,
+.sign-up__form {
+  display: flex;
+  flex-direction: column;
+
+  margin: 0 auto;
+
+  justify-content: space-around;
+}
+
+.form__input-area {
+  display: flex;
+  flex-direction: column;
+
+  min-width: 350px;
+  margin-bottom: 20px;
+}
+
+.form__input-label {
+  font-size: 12px;
+}
+
+.form__input-field {
+  padding: 8px;
+
+  border: 1px solid #106cc8;
+  border-radius: 7px;
+}
+
+.form__input-field:focus-visible {
+  outline: 1px solid #106cc8;
+}
+
+.form__buttons-area {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+}
+
+.form__button {
+  padding: 6px 14px;
+
+  font-weight: 600;
+}
+
+.form__button_sign-up {
+  color: #ffffff;
+  border: 1px solid #106cc8;
+  border-radius: 7px;
+  background-color: #106cc8;
+
+  font-size: 14px;
+}
+
+.form__button_sign-up:hover {
+  background-color: #1376d9;
+}
+
+.form__button_sign-up:active {
+  background-color: #0080ff;
+}
+
+.form__button_sign-in {
+  padding: 4px 0;
+
+  color: #106cc8;
+  background-color: transparent;
+}
+
+.form__button_sign-in:hover {
+  color: #0080ff;
+}
