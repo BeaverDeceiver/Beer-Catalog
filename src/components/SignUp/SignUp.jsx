@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 export function SignUp() {
   return (
     <section className="sign-up">
-      <h1 className="sign-up__header">Sign Up</h1>
+      <h1 className="sign-up__header form__header">Sign Up</h1>
       <Formik
         initialValues={{
           firstName: '',
@@ -16,7 +16,7 @@ export function SignUp() {
         }}
         // onSubmit={async (values) => {}}
       >
-        <Form className="sign-up__form">
+        <Form className="sign-up__form form">
           <article className="form__input-area">
             <label className="form__input-label" htmlFor="firstName">
               First Name
@@ -77,7 +77,7 @@ export function SignUp() {
               className="form__button form__button_sign-up button"
               type="submit"
             >
-              Submit
+              Sign Up
             </button>
           </article>
         </Form>
