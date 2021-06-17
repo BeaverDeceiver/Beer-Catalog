@@ -12,3 +12,7 @@ export default function getURL(params = {}) {
 export function getSingleBeerURL(id) {
   return `https://api.punkapi.com/v2/beers/${id}`;
 }
+
+export function getSingleBeerURLBackend(id) {
+  return `http://localhost:${process.env.REACT_APP_BACKEND_PORT}/beer/${id}`;
+}
