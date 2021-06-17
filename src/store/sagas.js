@@ -12,7 +12,7 @@ import {
 } from '../store/actions/actions';
 
 import fetchAPI from '../apis/Fetch';
-import GetURL from '../apis/URL';
+import { getMultipleBeerBackendURL } from '../apis/URL';
 import { PER_PAGE, STATE_STATUS_IDLE } from '../constants/stateConstants';
 
 function mapResponse(response, favorites) {
@@ -30,8 +30,12 @@ function mapResponse(response, favorites) {
 function* apiCall(query = '', page = 1, favorites) {
   const url =
     query !== ''
-      ? GetURL({ beer_name: query, page, per_page: PER_PAGE })
-      : GetURL({ page, per_page: PER_PAGE });
+      ? getMultipleBeerBackendURL({
+          beer_name: query,
+          page,
+          per_page: PER_PAGE,
+        })
+      : getMultipleBeerBackendURL({ page, per_page: PER_PAGE });
 
   let fetchData = yield fetchAPI(url);
   let items = mapResponse(fetchData, favorites);
