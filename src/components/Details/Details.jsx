@@ -1,5 +1,5 @@
 import React from 'react';
-import { fetchSingleBeer } from '../../apis/Fetch';
+import { fetchSingleBeerBackend } from '../../apis/Fetch';
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -24,7 +24,7 @@ export function Details() {
   const [isFavorite, setIsFavorite] = useState(true);
 
   useEffect(() => {
-    fetchSingleBeer(beerId).then((data) => {
+    fetchSingleBeerBackend(beerId).then((data) => {
       setBeer(data);
       setIsInitiallyLoading(false);
     });
