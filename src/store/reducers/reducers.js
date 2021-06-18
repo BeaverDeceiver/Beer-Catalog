@@ -22,9 +22,9 @@ import {
 } from '../actions/actions';
 
 const defaultFilters = {
-  abv: ALCOHOL_VOLUME_MIN,
-  ibu: IBU_MIN,
-  ebc: EBC_COLOR_MIN,
+  abv_bg: ALCOHOL_VOLUME_MIN,
+  ibu_gt: IBU_MIN,
+  ebc_gt: EBC_COLOR_MIN,
 };
 
 const defaultState = {
