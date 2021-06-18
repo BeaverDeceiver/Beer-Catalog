@@ -12,6 +12,10 @@ export const fetchBeer = createAction('FETCH_BEER');
 
 export const fetchMoreBeer = createAction('FETCH_MORE_BEER');
 
+export const fetchMoreBeerWithFilters = createAction(
+  'FETCH_MORE_BEER_WITH_FILTERS'
+);
+
 // filters
 export const setFilters = createAction('SET_FILTERS');
 

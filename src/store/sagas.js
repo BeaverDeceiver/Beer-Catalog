@@ -11,8 +11,8 @@ import {
   setStatus,
 } from '../store/actions/actions';
 
-import fetchAPI from '../apis/Fetch';
-import { getMultipleBeerBackendURL } from '../apis/URL';
+import { fetchAPI } from '../apis/Fetch';
+import { getMultipleBeerURL } from '../apis/URL';
 import { PER_PAGE, STATE_STATUS_IDLE } from '../constants/stateConstants';
 
 function mapResponse(response, favorites) {
@@ -28,14 +28,37 @@ function mapResponse(response, favorites) {
 }
 
 function* apiCall(query = '', page = 1, favorites) {
-  const url =
-    query !== ''
-      ? getMultipleBeerBackendURL({
+  const params =
+    query === ''
+      ? { page, per_page: PER_PAGE }
+      : {
           beer_name: query,
           page,
           per_page: PER_PAGE,
-        })
-      : getMultipleBeerBackendURL({ page, per_page: PER_PAGE });
+        };
+  const url = getMultipleBeerURL(params);
+
+  let fetchData = yield fetchAPI(url);
+  let items = mapResponse(fetchData, favorites);
+
+  if (items.length < PER_PAGE) yield put(reachedEnd());
+  return items;
+}
+
+function* apiCallWithFilters(query = '', page = 1, favorites, filters) {
+  const params =
+    query === ''
+      ? { page, per_page: PER_PAGE, ...filters }
+      : {
+          beer_name: query,
+          page,
+          per_page: PER_PAGE,
+          ...filters,
+        };
+
+  console.log(params);
+
+  const url = getMultipleBeerURL(params);
 
   let fetchData = yield fetchAPI(url);
   let items = mapResponse(fetchData, favorites);
@@ -55,6 +78,14 @@ export function* fetchBeer(action) {
 export function* fetchMoreBeer(action) {
   const { query, page, favorites } = action.payload;
   const items = yield apiCall(query, page, favorites);
+
+  yield put(listMoreBeer({ items, page }));
+  yield put(setStatus({ status: STATE_STATUS_IDLE }));
+}
+
+export function* fetchMoreBeerWithFilters(action) {
+  const { query, page, favorites, filters } = action.payload;
+  const items = yield apiCallWithFilters(query, page, favorites, filters);
 
   yield put(listMoreBeer({ items, page }));
   yield put(setStatus({ status: STATE_STATUS_IDLE }));
@@ -87,6 +118,10 @@ export function* watchFetchMoreBeer() {
   yield takeEvery('FETCH_MORE_BEER', fetchMoreBeer);
 }
 
+export function* watchFetchMoreBeerWithFilters() {
+  yield takeEvery('FETCH_MORE_BEER_WITH_FILTERS', fetchMoreBeerWithFilters);
+}
+
 export function* watchToggleFavorite() {
   yield takeEvery('TOGGLE_FAVORITE', toggleFavorite);
 }
@@ -99,6 +134,7 @@ export default function* rootSaga() {
   yield all([
     watchFetchBeer(),
     watchFetchMoreBeer(),
+    watchFetchMoreBeerWithFilters(),
     watchToggleFavorite(),
     watchToggleFavoriteDetails(),
   ]);

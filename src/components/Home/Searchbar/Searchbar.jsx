@@ -20,9 +20,9 @@ import './Searchbar.css';
 export function SearchBar() {
   const [query, setQuery] = useState('');
   const [filter, setFilter] = useState({
-    abv: ALCOHOL_VOLUME_MIN,
-    ebc: EBC_COLOR_MIN,
-    ibu: IBU_MIN,
+    abv_gt: ALCOHOL_VOLUME_MIN,
+    ebc_gt: EBC_COLOR_MIN,
+    ibu_gt: IBU_MIN,
   });
   const [displayFilters, setDisplayFilters] = useState(false);
   const dispatch = useDispatch();
@@ -46,13 +46,14 @@ export function SearchBar() {
     const newValue = Number(e.target.value);
     switch (type) {
       case 'abv':
-        setFilter({ ...filter, abv: newValue });
+        setFilter({ ...filter, abv_gt: newValue });
+        console.log(filter);
         break;
       case 'ibu':
-        setFilter({ ...filter, ibu: newValue });
+        setFilter({ ...filter, ibu_gt: newValue });
         break;
       case 'ebc':
-        setFilter({ ...filter, ebc: newValue });
+        setFilter({ ...filter, ebc_gt: newValue });
         break;
       default:
         return;

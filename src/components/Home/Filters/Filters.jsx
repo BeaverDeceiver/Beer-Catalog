@@ -20,7 +20,7 @@ export function Filters(props) {
       <article className="filter-sliders__article">
         <p>Alcohol by volume</p>
         <section className="slider-section">
-          <p>{filter.abv}</p>
+          <p>{filter.abv_gt}</p>
           <input
             type="range"
             min={ALCOHOL_VOLUME_MIN}
@@ -37,7 +37,7 @@ export function Filters(props) {
       <article className="filter-sliders__article">
         <p>International bitterness units</p>
         <section className="slider-section">
-          <p>{filter.ibu}</p>
+          <p>{filter.ibu_gt}</p>
           <input
             type="range"
             min={IBU_MIN}
@@ -53,7 +53,7 @@ export function Filters(props) {
       <article className="filter-sliders__article">
         <p>Color by EBC</p>
         <section className="slider-section">
-          <p>{filter.ebc}</p>
+          <p>{filter.ebc_gt}</p>
           <input
             type="range"
             min={EBC_COLOR_MIN}
