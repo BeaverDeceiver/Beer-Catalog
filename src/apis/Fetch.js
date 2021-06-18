@@ -1,18 +1,18 @@
-import { getSingleBeerURL, getSingleBeerURLBackend } from './URL';
+import { getSingleBeerURL } from './URL';
 
-function fetchAPI(url) {
-  return fetch(url).then((resolve) => resolve.json());
+export async function fetchAPI(url) {
+  const resolve = await fetch(url);
+  return await resolve.json();
 }
 
-export default fetchAPI;
-
-export function fetchSingleBeer(id) {
+export async function fetchSingleBeer(id) {
   const url = getSingleBeerURL(id);
-  return fetchAPI(url).then((data) => data[0]);
+  const data = await fetchAPI(url);
+  return data[0];
 }
 
 export async function fetchSingleBeerBackend(id) {
-  const url = getSingleBeerURLBackend(id);
+  const url = getSingleBeerURL(id);
   const data = await (await fetch(url)).json();
   return data[0];
 }
