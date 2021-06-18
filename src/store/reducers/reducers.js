@@ -19,6 +19,7 @@ import {
   clearFilters,
   addFavoriteDetails,
   removeFavoriteDetails,
+  resetReachedEnd,
 } from '../actions/actions';
 
 const defaultFilters = {
@@ -57,7 +58,7 @@ const beerSearch = handleActions(
         page: state.page + 1,
       };
     },
-    [clearBeer]: (state, action) => {
+    [clearBeer]: (state) => {
       return {
         ...state,
         beer: [],
@@ -73,7 +74,7 @@ const beerSearch = handleActions(
     [setFilterStatus]: (state, action) => {
       return { ...state, filterStatus: action.payload.filterStatus };
     },
-    [clearFilters]: (state, action) => {
+    [clearFilters]: (state) => {
       return {
         ...state,
         filters: defaultFilters,
@@ -127,10 +128,16 @@ const beerSearch = handleActions(
         status: action.payload.status,
       };
     },
-    [reachedEnd]: (state, action) => {
+    [reachedEnd]: (state) => {
       return {
         ...state,
         reachedEnd: true,
+      };
+    },
+    [resetReachedEnd]: (state) => {
+      return {
+        ...state,
+        reachedEnd: false,
       };
     },
   },

@@ -3,6 +3,7 @@ import { useDispatch, useSelector, batch } from 'react-redux';
 import SearchIcon from '@material-ui/icons/Search';
 import {
   fetchBeer,
+  resetReachedEnd,
   setFilters,
   setFilterStatus,
   setStatus,
@@ -61,6 +62,7 @@ export function SearchBar() {
     batch(() => {
       dispatch(setFilters({ filters: filter }));
       dispatch(setFilterStatus({ filterStatus: displayFilters }));
+      dispatch(resetReachedEnd());
     });
     e.target.title = e.target.value;
   }

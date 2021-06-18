@@ -40,3 +40,5 @@ export const removeFavoriteDetails = createAction('REMOVE_FAVORITE_DETAILS');
 export const setStatus = createAction('SET_STATUS');
 
 export const reachedEnd = createAction('REACHED_END');
+
+export const resetReachedEnd = createAction('RESET_REACHED_END');
