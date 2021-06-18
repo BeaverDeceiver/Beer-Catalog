@@ -3,6 +3,10 @@
   flex-direction: column;
 }
 
+.page__inner-container {
+  padding: 44px 65px;
+}
+
 /* hide scrollbar */
 .scroll-area {
   overflow-y: auto;
