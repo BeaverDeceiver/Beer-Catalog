@@ -13,11 +13,11 @@ export function getSingleBeerURL(id) {
 }
 
 export function getSingleBeerURLBackend(id) {
-  return `http://localhost:${process.env.REACT_APP_BACKEND_PORT}/beer/${id}`;
+  return `https://beer-catalog-21-back.herokuapp.com/beer/${id}`;
 }
 
 export function getMultipleBeerBackendURL(params) {
-  let url = new URL(`http://localhost:${process.env.REACT_APP_BACKEND_PORT}`);
+  let url = new URL(`https://beer-catalog-21-back.herokuapp.com/`);
   for (const [key, value] of Object.entries(params)) {
     if (typeof value === 'string')
       url.searchParams.set(key, value.replace(/\s/g, '_'));
