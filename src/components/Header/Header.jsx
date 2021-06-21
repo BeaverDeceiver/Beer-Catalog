@@ -63,11 +63,11 @@ export default function TemporaryDrawer() {
       </Fragment>
 
       <article className="header__user-area">
-        <Link to="/signin">
+        <Link to="/auth/signin">
           <button className="button_sign-in button">Sign In</button>
         </Link>
 
-        <Link to="/signup">
+        <Link to="/auth/signup">
           <button className="button_sign-up button">Sign Up</button>
         </Link>
       </article>
