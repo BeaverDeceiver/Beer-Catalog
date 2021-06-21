@@ -3,6 +3,7 @@ import { Formik, Form, Field } from 'formik';
 
 import './SignIn.css';
 import { Link } from 'react-router-dom';
+import { sendSignInRequest } from '../../apis/Auth';
 
 const validateEmail = (value) => {
   let errorMessage;
@@ -23,7 +24,9 @@ export function SignIn() {
           email: '',
           password: '',
         }}
-        // onSubmit={async (values) => {}}
+        onSubmit={async (values) => {
+          console.log(sendSignInRequest(values));
+        }}
       >
         {({ errors, touched }) => (
           <Form className="sign-in__form">
