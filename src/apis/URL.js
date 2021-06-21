@@ -1,9 +1,11 @@
+const urlBase = `https://beer-catalog-21-back.herokuapp.com/`;
+
 export function getSingleBeerURL(id) {
-  return `https://beer-catalog-21-back.herokuapp.com/beer/${id}`;
+  return `${urlBase}beer/${id}`;
 }
 
 export function getMultipleBeerURL(params) {
-  let url = new URL(`https://beer-catalog-21-back.herokuapp.com/`);
+  let url = new URL(`${urlBase}`);
   for (const [key, value] of Object.entries(params)) {
     if (typeof value === 'string')
       url.searchParams.set(key, value.replace(/\s/g, '_'));
@@ -11,3 +13,7 @@ export function getMultipleBeerURL(params) {
   }
   return url;
 }
+
+export const signInURL = `${urlBase}auth/signin`;
+
+export const signUpURL = `${urlBase}auth/signup`;
