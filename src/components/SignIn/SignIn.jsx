@@ -2,8 +2,11 @@ import React from 'react';
 import { Formik, Form, Field } from 'formik';
 
 import './SignIn.css';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { sendSignInRequest } from '../../apis/Auth';
+import { getAccessToken, setTokens } from '../Auth/Session';
+import { SignedIn } from '../Auth/SignedIn';
+import { useState } from 'react';
 
 const validateEmail = (value) => {
   let errorMessage;
@@ -16,6 +19,16 @@ const validateEmail = (value) => {
 };
 
 export function SignIn() {
+  const [redirect, setRedirect] = useState(null);
+
+  if (redirect) {
+    return <Redirect to="/" />;
+  }
+
+  if (getAccessToken()) {
+    return <SignedIn />;
+  }
+
   return (
     <section className="sign-up">
       <h1 className="sign-up__header form__header">Sign In</h1>
@@ -25,7 +38,10 @@ export function SignIn() {
           password: '',
         }}
         onSubmit={async (values) => {
-          console.log(sendSignInRequest(values));
+          const response = await sendSignInRequest(values);
+          setTokens(response);
+
+          setRedirect(true);
         }}
       >
         {({ errors, touched }) => (
