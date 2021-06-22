@@ -1,4 +1,5 @@
-import { signInURL, signUpURL } from './URL';
+import { getRefreshToken } from '../components/Auth/Session';
+import { refreshURL, signInURL, signUpURL } from './URL';
 
 export async function sendSignInRequest(user) {
   const url = signInURL;
@@ -9,7 +10,20 @@ export async function sendSignInRequest(user) {
     },
     body: JSON.stringify(user),
   });
-  return await (await response).json();
+  return (await response).json();
+}
+
+export async function sendRefreshRequest() {
+  const refreshToken = getRefreshToken();
+  const url = refreshURL;
+  const response = fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ refreshToken }),
+  });
+  return (await response).json();
 }
 
 export async function sendSignUpRequest(user) {

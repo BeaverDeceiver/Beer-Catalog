@@ -1,4 +1,5 @@
-const urlBase = `https://beer-catalog-21-back.herokuapp.com/`;
+// const urlBase = `https://beer-catalog-21-back.herokuapp.com/`;
+const urlBase = `http://localhost:5000/`;
 
 export function getSingleBeerURL(id) {
   return `${urlBase}beer/${id}`;
@@ -17,3 +18,5 @@ export function getMultipleBeerURL(params) {
 export const signInURL = `${urlBase}auth/signin`;
 
 export const signUpURL = `${urlBase}auth/signup`;
+
+export const refreshURL = `${urlBase}auth/refresh`;
