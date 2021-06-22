@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import beerSearchReducer from './reducers/reducers';
+import beerSearchReducer from './reducers/beer';
 import Saga from 'redux-saga';
 import rootSaga from './sagas';
 import { batchedSubscribe } from 'redux-batched-subscribe';

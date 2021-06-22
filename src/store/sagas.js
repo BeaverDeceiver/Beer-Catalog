@@ -9,7 +9,7 @@ import {
   removeFavorite,
   removeFavoriteDetails,
   setStatus,
-} from '../store/actions/actions';
+} from './actions/actions';
 
 import { fetchAPI } from '../apis/Fetch';
 import { getMultipleBeerURL } from '../apis/URL';
