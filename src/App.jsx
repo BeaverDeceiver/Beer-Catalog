@@ -6,6 +6,7 @@ import './App.css';
 import { Details } from './components/Details/Details';
 import { SignIn } from './components/SignIn/SignIn';
 import { SignUp } from './components/SignUp/SignUp';
+import { PrivateRoute } from './components/Auth/PrivateRoute';
 
 function App() {
   return (
@@ -15,9 +16,9 @@ function App() {
           <header>
             <Header />
           </header>
-          <Route exact path="/" component={Home} />
-          <Route path="/favorites" component={Favorites} />
-          <Route path="/beer/:beerId" component={Details} />
+          <PrivateRoute exact path="/" component={Home} />
+          <PrivateRoute path="/favorites" component={Favorites} />
+          <PrivateRoute path="/beer/:beerId" component={Details} />
           <Route path="/auth/signin" component={SignIn} />
           <Route path="/auth/signup" component={SignUp} />
         </div>
