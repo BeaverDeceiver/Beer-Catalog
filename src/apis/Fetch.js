@@ -24,12 +24,12 @@ export async function fetchUserFavorites() {
   return await (await sendAuthorizedRequest(favoritesURL)).json();
 }
 
-export async function requestDeleteFavoriteRequest(id) {
+export async function requestDeleteFavorite(id) {
   const url = getFavoriteURLFromId(id);
-  return await (await sendAuthorizedRequest(url, 'DELETE')).json();
+  return await sendAuthorizedRequest(url, 'DELETE');
 }
 
-export async function requestAddFavortiteRequest(id) {
+export async function requestAddFavorite(id) {
   const url = getFavoriteURLFromId(id);
   return await (await sendAuthorizedRequest(url, 'POST')).json();
 }
