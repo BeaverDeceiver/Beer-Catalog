@@ -28,18 +28,19 @@
 /* header */
 .header {
   display: flex;
-  justify-content: space-between;
 
   height: 55px;
 
   background-color: #106cc8;
 
   align-items: center;
+  justify-content: space-between;
 }
 
 .header__caption,
 .drawer__caption {
   display: inline-block;
+
   color: #ffffff;
 
   font-size: 16px;
@@ -50,27 +51,28 @@
   margin: auto 25px;
 }
 
-.button_sign-in,
-.button_sign-up {
-  font-size: 15px;
-  background-color: transparent;
+.header__button {
+  margin-left: 15px;
+  padding: 6px 10px;
+
   color: #ffffff;
   border-radius: 7px;
-  padding: 6px 10px;
-  margin-left: 15px;
+  background-color: transparent;
+
+  font-size: 15px;
 }
 
-.button_sign-in:hover,
-.button_sign-up:hover {
-  border-radius: 5px;
-  border: solid 1px #ffffff;
+.header__button:hover {
   padding: 6px 9px;
+
+  border: solid 1px #ffffff;
+  border-radius: 5px;
 }
 
-.button_sign-in:active,
-.button_sign-up:active {
-  border-radius: 5px;
-  border: solid 1px #ffffff;
+.header__button:active {
   padding: 6px 9px;
+
+  border: solid 1px #ffffff;
+  border-radius: 5px;
   background-color: rgba(216, 191, 216, 0.192);
 }
