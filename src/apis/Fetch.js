@@ -1,25 +1,24 @@
 import { getAccessToken } from './Session';
-import { getSingleBeerURL } from './URL';
+import { favoritesURL, getSingleBeerURL } from './URL';
 
-export async function fetchAPI(url) {
-  const resolve = await fetch(url, {
+async function sendAuthorizedRequest(url) {
+  return await fetch(url, {
     headers: {
       Authorization: `Bearer ${getAccessToken()}`,
       'Content-Type': 'application/json',
     },
   });
-  return await resolve.json();
+}
+
+export async function fetchAPI(url) {
+  return await (await sendAuthorizedRequest(url)).json();
 }
 
 export async function fetchSingleBeer(id) {
   const url = getSingleBeerURL(id);
-  const data = await (
-    await fetch(url, {
-      headers: {
-        Authorization: `Bearer ${getAccessToken()}`,
-        'Content-Type': 'application/json',
-      },
-    })
-  ).json();
-  return data[0];
+  return (await (await sendAuthorizedRequest(url)).json())[0];
+}
+
+export async function fetchUserFavorites() {
+  return await (await sendAuthorizedRequest(favoritesURL)).json();
 }
