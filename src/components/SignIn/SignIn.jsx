@@ -7,6 +7,9 @@ import { sendSignInRequest } from '../../apis/Auth';
 import { getAccessToken, setTokens } from '../../apis/Session';
 import { SignedIn } from '../Auth/SignedIn';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { setAuthStatus } from '../../store/actions/actions';
+import { AUTH_STATUS_LOGGED_IN } from '../../constants/authConstants';
 
 const validateEmail = (value) => {
   let errorMessage;
@@ -20,6 +23,7 @@ const validateEmail = (value) => {
 
 export function SignIn() {
   const [redirect, setRedirect] = useState(null);
+  const dispatch = useDispatch();
 
   if (redirect) {
     return <Redirect to="/" />;
@@ -40,6 +44,7 @@ export function SignIn() {
         onSubmit={async (values) => {
           const response = await sendSignInRequest(values);
           setTokens(response);
+          dispatch(setAuthStatus({ status: AUTH_STATUS_LOGGED_IN }));
 
           setRedirect(true);
         }}
