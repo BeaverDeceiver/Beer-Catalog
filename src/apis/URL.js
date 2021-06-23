@@ -20,3 +20,5 @@ export const signInURL = `${urlBase}auth/signin`;
 export const signUpURL = `${urlBase}auth/signup`;
 
 export const refreshURL = `${urlBase}auth/refresh`;
+
+export const favoritesURL = `${urlBase}favorites`;
