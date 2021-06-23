@@ -20,6 +20,7 @@ import {
   addFavoriteDetails,
   removeFavoriteDetails,
   resetReachedEnd,
+  setFavorites,
 } from '../actions/actions';
 
 const defaultFilters = {
@@ -119,6 +120,12 @@ const beerSearch = handleActions(
         favorites: state.favorites.filter(
           (item) => item.id !== action.payload.beer.id
         ),
+      };
+    },
+    [setFavorites]: (state, action) => {
+      return {
+        ...state,
+        favorites: action.payload.favorites,
       };
     },
     // status

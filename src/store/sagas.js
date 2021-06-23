@@ -8,10 +8,11 @@ import {
   reachedEnd,
   removeFavorite,
   removeFavoriteDetails,
+  setFavorites,
   setStatus,
 } from './actions/actions';
 
-import { fetchAPI } from '../apis/Fetch';
+import { fetchAPI, fetchUserFavorites } from '../apis/Fetch';
 import { getMultipleBeerURL } from '../apis/URL';
 import { PER_PAGE, STATE_STATUS_IDLE } from '../constants/stateConstants';
 
@@ -67,16 +68,25 @@ function* apiCallWithFilters(query = '', page = 1, favorites, filters) {
   return items;
 }
 
+// initial beer list - o
 export function* fetchBeer(action) {
-  const { query, favorites } = action.payload;
+  const { query } = action.payload;
+  const favorites = yield fetchUserFavorites();
+  yield put(setFavorites({ favorites }));
+
   const items = yield apiCall(query, 1, favorites);
 
   yield put(listBeer({ query, items }));
   yield put(setStatus({ status: STATE_STATUS_IDLE }));
 }
 
+// following beer list
 export function* fetchMoreBeer(action) {
-  const { query, page, favorites } = action.payload;
+  const { query, page } = action.payload;
+
+  const favorites = yield fetchUserFavorites();
+  yield put(setFavorites({ favorites }));
+
   const items = yield apiCall(query, page, favorites);
 
   yield put(listMoreBeer({ items, page }));
@@ -84,7 +94,11 @@ export function* fetchMoreBeer(action) {
 }
 
 export function* fetchMoreBeerWithFilters(action) {
-  const { query, page, favorites, filters } = action.payload;
+  const { query, page, filters } = action.payload;
+
+  const favorites = yield fetchUserFavorites();
+  yield put(setFavorites({ favorites }));
+
   const items = yield apiCallWithFilters(query, page, favorites, filters);
 
   yield put(listMoreBeer({ items, page }));

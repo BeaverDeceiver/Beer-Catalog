@@ -14,7 +14,6 @@ import {
   setStatus,
 } from '../../store/actions/actions';
 import {
-  selectFavorites,
   selectPage,
   selectQuery,
   selectReachedEnd,
@@ -30,7 +29,6 @@ export function Home() {
   const query = useSelector(selectQuery);
   const page = useSelector(selectPage);
   const reachedEnd = useSelector(selectReachedEnd);
-  const favorites = useSelector(selectFavorites);
   const shouldFilter = useSelector(selectFilterStatus);
   const filters = useSelector(selectFilters);
 
@@ -46,10 +44,8 @@ export function Home() {
       batch(() => {
         dispatch(setStatus({ status: STATE_STATUS_BUSY }));
         shouldFilter
-          ? dispatch(
-              fetchMoreBeerWithFilters({ query, page, favorites, filters })
-            )
-          : dispatch(fetchMoreBeer({ query, page, favorites }));
+          ? dispatch(fetchMoreBeerWithFilters({ query, page, filters }))
+          : dispatch(fetchMoreBeer({ query, page }));
       });
     }
   }, 100);
