@@ -51,6 +51,14 @@ const validatePassword = (value) => {
 
 export function SignUp() {
   const [registered, setRegistered] = useState(false);
+  const [invalidData, setInvalidData] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const handleInvalidData = (e) => {
+    setInvalidData(true);
+    setErrorMessage(e.message);
+    setTimeout(() => setInvalidData(false), 2000);
+  };
 
   if (getAccessToken()) {
     return <SignedIn />;
@@ -71,9 +79,13 @@ export function SignUp() {
           password: '',
         }}
         onSubmit={async (values) => {
-          const response = await sendSignUpRequest(values);
-          if (response) {
-            setRegistered(true);
+          try {
+            const response = await sendSignUpRequest(values);
+            if (response) {
+              setRegistered(true);
+            }
+          } catch (e) {
+            handleInvalidData(e);
           }
         }}
       >
@@ -161,6 +173,7 @@ export function SignUp() {
           </Form>
         )}
       </Formik>
+      {invalidData ? <div className="auth__error">{errorMessage}</div> : null}
     </section>
   );
 }
