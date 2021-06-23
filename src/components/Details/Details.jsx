@@ -30,7 +30,7 @@ export function Details() {
 
   const [beer, setBeer] = useState({});
   const [isInitiallyLoading, setIsInitiallyLoading] = useState(true);
-  const [isFavorite, setIsFavorite] = useState(true);
+  const [isFavorite, setIsFavorite] = useState('Loading');
 
   useEffect(() => {
     if (!favoritesStatus) {
@@ -46,7 +46,11 @@ export function Details() {
   }, [beerId, dispatch, favoritesStatus]);
 
   useEffect(() => {
-    setIsFavorite(favorites.find((item) => item.id === Number(beerId)));
+    setIsFavorite(
+      favorites.find((item) => item.id === Number(beerId))
+        ? 'Remove from Favorites'
+        : 'Add To Favorites'
+    );
   }, [beerId, favorites]);
 
   function handleToggleFavorite() {
@@ -72,7 +76,7 @@ export function Details() {
               className="details__favorite-button button"
               onClick={handleToggleFavorite}
             >
-              {isFavorite ? 'Remove from Favorites' : 'Add To Favorites'}
+              {isFavorite}
             </button>
             <p className="details__description">{beer.description}</p>
           </article>
