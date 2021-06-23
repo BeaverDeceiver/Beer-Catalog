@@ -4,7 +4,10 @@ import {
   EBC_COLOR_MIN,
   IBU_MIN,
 } from '../../constants/beerConstants';
-import { STATE_STATUS_IDLE } from '../../constants/stateConstants';
+import {
+  FAVORITES_STATUS_UNSET,
+  STATE_STATUS_IDLE,
+} from '../../constants/stateConstants';
 
 import {
   listBeer,
@@ -21,6 +24,7 @@ import {
   removeFavoriteDetails,
   resetReachedEnd,
   setFavorites,
+  setFavoritesStatus,
 } from '../actions/actions';
 
 const defaultFilters = {
@@ -35,6 +39,7 @@ const defaultState = {
   reachedEnd: false,
   beer: [],
   favorites: [],
+  favoritesStatus: FAVORITES_STATUS_UNSET,
   page: 1,
   filters: defaultFilters,
   filterStatus: false,
@@ -126,6 +131,12 @@ const beerSearch = handleActions(
       return {
         ...state,
         favorites: action.payload.favorites,
+      };
+    },
+    [setFavoritesStatus]: (state, action) => {
+      return {
+        ...state,
+        favoritesStatus: action.payload.favoritesStatus,
       };
     },
     // status

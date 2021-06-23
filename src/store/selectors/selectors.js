@@ -6,6 +6,10 @@ export function selectFavorites(state) {
   return state.beerSearch.favorites;
 }
 
+export function selectFavoritesStatus(state) {
+  return state.beerSearch.favoritesStatus;
+}
+
 export function selectStatus(state) {
   return state.beerSearch.status;
 }

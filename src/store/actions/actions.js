@@ -36,7 +36,11 @@ export const addFavoriteDetails = createAction('ADD_FAVORITE_DETAILS');
 
 export const removeFavoriteDetails = createAction('REMOVE_FAVORITE_DETAILS');
 
+export const fetchFavorites = createAction('FETCH_FAVORITES');
+
 export const setFavorites = createAction('SET_FAVORITES');
+
+export const setFavoritesStatus = createAction('SET_FAVORITES_STATUS');
 
 // status
 export const setStatus = createAction('SET_STATUS');

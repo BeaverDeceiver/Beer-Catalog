@@ -9,13 +9,19 @@ import {
   removeFavorite,
   removeFavoriteDetails,
   setFavorites,
+  setFavoritesStatus,
   setStatus,
 } from './actions/actions';
 
-import { fetchAPI, fetchUserFavorites } from '../apis/Fetch';
+import { fetchBeerList, fetchUserFavorites } from '../apis/Fetch';
 import { getMultipleBeerURL } from '../apis/URL';
-import { PER_PAGE, STATE_STATUS_IDLE } from '../constants/stateConstants';
+import {
+  FAVORITES_STATUS_SET,
+  PER_PAGE,
+  STATE_STATUS_IDLE,
+} from '../constants/stateConstants';
 
+// helpers
 function mapResponse(response, favorites) {
   return response.map((item) => {
     return {
@@ -39,7 +45,7 @@ function* apiCall(query = '', page = 1, favorites) {
         };
   const url = getMultipleBeerURL(params);
 
-  let fetchData = yield fetchAPI(url);
+  let fetchData = yield fetchBeerList(url);
   let items = mapResponse(fetchData, favorites);
 
   if (items.length < PER_PAGE) yield put(reachedEnd());
@@ -61,7 +67,7 @@ function* apiCallWithFilters(query = '', page = 1, favorites, filters) {
 
   const url = getMultipleBeerURL(params);
 
-  let fetchData = yield fetchAPI(url);
+  let fetchData = yield fetchBeerList(url);
   let items = mapResponse(fetchData, favorites);
 
   if (items.length < PER_PAGE) yield put(reachedEnd());
@@ -78,9 +84,10 @@ export function* fetchBeer(action) {
 
   yield put(listBeer({ query, items }));
   yield put(setStatus({ status: STATE_STATUS_IDLE }));
+  yield put(setFavoritesStatus({ favoritesStatus: FAVORITES_STATUS_SET }));
 }
 
-// following beer list
+// following beer list - o
 export function* fetchMoreBeer(action) {
   const { query, page } = action.payload;
 
@@ -93,6 +100,7 @@ export function* fetchMoreBeer(action) {
   yield put(setStatus({ status: STATE_STATUS_IDLE }));
 }
 
+// following beer list w/ filters - o
 export function* fetchMoreBeerWithFilters(action) {
   const { query, page, filters } = action.payload;
 
@@ -105,6 +113,12 @@ export function* fetchMoreBeerWithFilters(action) {
   yield put(setStatus({ status: STATE_STATUS_IDLE }));
 }
 
+export function* fetchFavorites() {
+  const favorites = yield fetchUserFavorites();
+  yield put(setFavorites({ favorites }));
+}
+
+// toggle favorite - x
 export function* toggleFavorite(action) {
   const { favorites, id } = action.payload;
 
@@ -115,6 +129,7 @@ export function* toggleFavorite(action) {
   }
 }
 
+// toggle favorite (from details page) - x
 export function* toggleFavoriteDetails(action) {
   const { favorites, beer } = action.payload;
   if (!favorites.find((item) => item.id === beer.id)) {
@@ -124,6 +139,7 @@ export function* toggleFavoriteDetails(action) {
   }
 }
 
+// watchers
 export function* watchFetchBeer() {
   yield takeEvery('FETCH_BEER', fetchBeer);
 }
@@ -134,6 +150,10 @@ export function* watchFetchMoreBeer() {
 
 export function* watchFetchMoreBeerWithFilters() {
   yield takeEvery('FETCH_MORE_BEER_WITH_FILTERS', fetchMoreBeerWithFilters);
+}
+
+export function* watchFetchFavorites() {
+  yield takeEvery('FETCH_FAVORITES', fetchFavorites);
 }
 
 export function* watchToggleFavorite() {
@@ -149,6 +169,7 @@ export default function* rootSaga() {
     watchFetchBeer(),
     watchFetchMoreBeer(),
     watchFetchMoreBeerWithFilters(),
+    watchFetchFavorites(),
     watchToggleFavorite(),
     watchToggleFavoriteDetails(),
   ]);
