@@ -37,5 +37,8 @@ export async function sendSignUpRequest(user) {
     },
     body: JSON.stringify(user),
   });
+  if ((await response).status === 400) {
+    throw new Error((await (await response).json()).message);
+  }
   return await (await response).json();
 }
