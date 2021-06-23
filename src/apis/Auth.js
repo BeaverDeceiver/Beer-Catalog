@@ -10,6 +10,8 @@ export async function sendSignInRequest(user) {
     },
     body: JSON.stringify(user),
   });
+  if ((await response).status === 400)
+    throw new Error('Incorrect email or password');
   return (await response).json();
 }
 

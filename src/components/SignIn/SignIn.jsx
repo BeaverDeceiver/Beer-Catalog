@@ -23,7 +23,14 @@ const validateEmail = (value) => {
 
 export function SignIn() {
   const [redirect, setRedirect] = useState(null);
+  const [invalidData, setInvalidData] = useState(false);
+
   const dispatch = useDispatch();
+
+  const handleInvalidData = () => {
+    setInvalidData(true);
+    setTimeout(() => setInvalidData(false), 2000);
+  };
 
   if (redirect) {
     return <Redirect to="/" />;
@@ -42,11 +49,15 @@ export function SignIn() {
           password: '',
         }}
         onSubmit={async (values) => {
-          const response = await sendSignInRequest(values);
-          setTokens(response);
-          dispatch(setAuthStatus({ status: AUTH_STATUS_LOGGED_IN }));
+          try {
+            const response = await sendSignInRequest(values);
+            setTokens(response);
+            dispatch(setAuthStatus({ status: AUTH_STATUS_LOGGED_IN }));
 
-          setRedirect(true);
+            setRedirect(true);
+          } catch (e) {
+            handleInvalidData();
+          }
         }}
       >
         {({ errors, touched }) => (
@@ -94,6 +105,7 @@ export function SignIn() {
                 Sign In
               </button>
             </article>
+            {invalidData ? <div>Invalid Email and/or Password</div> : null}
           </Form>
         )}
       </Formik>
