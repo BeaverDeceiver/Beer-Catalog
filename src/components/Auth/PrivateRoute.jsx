@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { sendRefreshRequest } from '../../apis/Auth';
-import { getAccessToken, getRefreshToken, setTokens } from './Session';
+import { getAccessToken, getRefreshToken, setTokens } from '../../apis/Session';
 import { LinearProgress } from '@material-ui/core';
 // import { useDispatch } from 'react-redux';
 
