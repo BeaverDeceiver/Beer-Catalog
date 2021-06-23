@@ -48,3 +48,7 @@ export const setStatus = createAction('SET_STATUS');
 export const reachedEnd = createAction('REACHED_END');
 
 export const resetReachedEnd = createAction('RESET_REACHED_END');
+
+// auth
+
+export const setAuthStatus = createAction('SET_AUTH_STATUS');

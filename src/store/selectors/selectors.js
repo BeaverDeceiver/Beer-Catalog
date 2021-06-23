@@ -33,3 +33,8 @@ export function selectFilterStatus(state) {
 export function selectReachedEnd(state) {
   return state.beerSearch.reachedEnd;
 }
+
+//auth
+export function selectAuthStatus(state) {
+  return state.auth.status;
+}
