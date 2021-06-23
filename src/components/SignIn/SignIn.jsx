@@ -105,7 +105,11 @@ export function SignIn() {
                 Sign In
               </button>
             </article>
-            {invalidData ? <div>Invalid Email and/or Password</div> : null}
+            {invalidData ? (
+              <div className="sign-in__error">
+                Invalid Email and/or Password
+              </div>
+            ) : null}
           </Form>
         )}
       </Formik>

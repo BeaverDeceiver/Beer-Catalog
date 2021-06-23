@@ -6,3 +6,8 @@
 
   justify-content: space-around;
 }
+
+.sign-in__error {
+  color: #c86c10;
+  font-size: 18px;
+}
