@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { useDispatch, useSelector, batch } from 'react-redux';
+import { useDispatch, batch } from 'react-redux';
 import SearchIcon from '@material-ui/icons/Search';
 import {
   fetchBeer,
