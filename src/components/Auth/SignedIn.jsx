@@ -1,5 +1,5 @@
 import React from 'react';
-import { hardLogOut } from './Session';
+import { hardLogOut } from '../../apis/Session';
 import { Link } from 'react-router-dom';
 import './SignedIn.css';
 

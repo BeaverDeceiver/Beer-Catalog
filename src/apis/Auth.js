@@ -1,4 +1,4 @@
-import { getRefreshToken } from '../components/Auth/Session';
+import { getRefreshToken } from './Session';
 import { refreshURL, signInURL, signUpURL } from './URL';
 
 export async function sendSignInRequest(user) {

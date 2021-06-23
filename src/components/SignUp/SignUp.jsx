@@ -4,7 +4,7 @@ import { Formik, Form, Field } from 'formik';
 import './SignUp.css';
 import { Link, Redirect } from 'react-router-dom';
 import { sendSignUpRequest } from '../../apis/Auth';
-import { getAccessToken } from '../Auth/Session';
+import { getAccessToken } from '../../apis/Session';
 import { SignedIn } from '../Auth/SignedIn';
 import { useState } from 'react';
 
