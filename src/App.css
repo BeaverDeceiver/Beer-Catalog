@@ -139,6 +139,11 @@
 
 .form__error-message {
   color: #c86c10;
-  /* color: #b02121; */
+
   font-size: 12px;
+}
+
+.auth__error {
+  color: #c86c10;
+  font-size: 18px;
 }

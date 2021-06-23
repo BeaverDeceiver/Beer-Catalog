@@ -106,9 +106,7 @@ export function SignIn() {
               </button>
             </article>
             {invalidData ? (
-              <div className="sign-in__error">
-                Invalid Email and/or Password
-              </div>
+              <div className="auth__error">Invalid Email and/or Password</div>
             ) : null}
           </Form>
         )}
