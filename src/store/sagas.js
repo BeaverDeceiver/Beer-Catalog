@@ -13,7 +13,12 @@ import {
   setStatus,
 } from './actions/actions';
 
-import { fetchBeerList, fetchUserFavorites } from '../apis/Fetch';
+import {
+  fetchBeerList,
+  fetchUserFavorites,
+  requestAddFavorite,
+  requestDeleteFavorite,
+} from '../apis/Fetch';
 import { getMultipleBeerURL } from '../apis/URL';
 import {
   FAVORITES_STATUS_SET,
@@ -113,6 +118,7 @@ export function* fetchMoreBeerWithFilters(action) {
   yield put(setStatus({ status: STATE_STATUS_IDLE }));
 }
 
+// `onLoad` favorites fetching
 export function* fetchFavorites() {
   const favorites = yield fetchUserFavorites();
   yield put(setFavorites({ favorites }));
@@ -123,8 +129,10 @@ export function* toggleFavorite(action) {
   const { favorites, id } = action.payload;
 
   if (!favorites.find((item) => item.id === id)) {
+    yield requestAddFavorite(id);
     yield put(addFavorite({ id }));
   } else {
+    yield requestDeleteFavorite(id);
     yield put(removeFavorite({ id }));
   }
 }
@@ -133,8 +141,10 @@ export function* toggleFavorite(action) {
 export function* toggleFavoriteDetails(action) {
   const { favorites, beer } = action.payload;
   if (!favorites.find((item) => item.id === beer.id)) {
+    yield requestAddFavorite(beer.id);
     yield put(addFavoriteDetails({ beer }));
   } else {
+    yield requestDeleteFavorite(beer.id);
     yield put(removeFavoriteDetails({ beer }));
   }
 }
