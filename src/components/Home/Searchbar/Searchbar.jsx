@@ -14,7 +14,6 @@ import {
   IBU_MIN,
 } from '../../../constants/beerConstants';
 import { STATE_STATUS_BUSY } from '../../../constants/stateConstants';
-import { selectFavorites } from '../../../store/selectors/selectors';
 import { Filters } from '../Filters/Filters';
 import './Searchbar.css';
 
@@ -28,12 +27,11 @@ export function SearchBar() {
   const [displayFilters, setDisplayFilters] = useState(false);
   const dispatch = useDispatch();
   const textInput = useRef(null);
-  const favorites = useSelector(selectFavorites);
 
   function handleSearch() {
     batch(() => {
       dispatch(setStatus({ status: STATE_STATUS_BUSY }));
-      dispatch(fetchBeer({ query, favorites }));
+      dispatch(fetchBeer({ query }));
     });
     textInput.current.blur();
     setDisplayFilters(true);

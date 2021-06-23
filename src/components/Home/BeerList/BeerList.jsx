@@ -30,7 +30,7 @@ export function BeerList() {
       setDidLoad(true);
       batch(() => {
         dispatch(setStatus({ status: STATE_STATUS_BUSY }));
-        dispatch(fetchBeer({ query: '', favorites }));
+        dispatch(fetchBeer({ query: '' }));
       });
     }
   }, [didLoad, dispatch, favorites]);
