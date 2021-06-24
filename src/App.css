@@ -24,7 +24,7 @@
 }
 
 .scroll-area_favorites {
-  height: calc(100vh - 55px - 47px - 44px);
+  height: calc(100vh - 55px);
   margin-bottom: 35px;
 }
 
