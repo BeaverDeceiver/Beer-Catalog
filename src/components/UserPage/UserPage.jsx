@@ -52,14 +52,16 @@ export function UserPage() {
           </h1>
           <h1 className="user-info__field">
             <p className="user-info__field-caption">DOB: </p>
-            {new Date(user.userInfo.dob).toLocaleDateString()}
+            {user.userInfo.dob
+              ? new Date(user.userInfo.dob).toLocaleDateString()
+              : `N/A`}
           </h1>
         </section>
         <article className="user-info__avatar">
           <img
             className="user-info__avatar-image"
             src={user.userInfo.avatar_url}
-            alt="user avatar"
+            alt="User Avatar"
           ></img>
         </article>
       </article>
