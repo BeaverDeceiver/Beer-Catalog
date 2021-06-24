@@ -41,9 +41,24 @@
 .drawer__caption {
   display: inline-block;
 
+  padding: 5px 4px 7px;
+
   color: #ffffff;
 
   font-size: 16px;
+}
+
+.header__caption {
+  margin: 8px -2px 4px;
+}
+
+.header__caption:hover {
+  border-radius: 6px;
+  outline: 1px solid;
+}
+
+.header__caption:active {
+  background-color: rgba(216, 191, 216, 0.192);
 }
 
 /* user-space */
@@ -72,7 +87,6 @@
 .header__button:active {
   padding: 6px 9px;
 
-  border: solid 1px #ffffff;
   border-radius: 5px;
   background-color: rgba(216, 191, 216, 0.192);
 }

@@ -13,7 +13,7 @@ import InboxIcon from '@material-ui/icons/Inbox';
 import './Header.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAuthStatus } from '../../store/selectors/selectors';
-import { hardLogOut } from '../../apis/Session';
+import { getOwnId, hardLogOut } from '../../apis/Session';
 import { setAuthStatus } from '../../store/actions/actions';
 import { AUTH_STATUS_LOGGED_OUT } from '../../constants/authConstants';
 
@@ -45,7 +45,9 @@ export function Header() {
             <DehazeIcon className="drawer__button" />
           </Button>
 
-          <h1 className="header__caption">Beer catalog</h1>
+          <Link to="/">
+            <h1 className="header__caption">Beer catalog</h1>
+          </Link>
         </div>
         <Drawer
           anchor={'left'}
@@ -77,6 +79,9 @@ export function Header() {
       <article className="header__user-area">
         {authStatus ? (
           <>
+            <Link to={`/user/${getOwnId()}`}>
+              <button className="header__button button">Account</button>
+            </Link>
             <Link to="/auth/signin">
               <button className="header__button button" onClick={handleLogOut}>
                 Sign Out
