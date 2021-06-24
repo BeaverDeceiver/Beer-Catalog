@@ -19,6 +19,7 @@ import {
   toggleFavoriteDetails,
 } from '../../store/actions/actions';
 import { FAVORITES_STATUS_SET } from '../../constants/stateConstants';
+import { Error } from '../Error/Error';
 
 export function Details() {
   const { beerId } = useParams();
@@ -31,6 +32,7 @@ export function Details() {
   const [beer, setBeer] = useState({});
   const [isInitiallyLoading, setIsInitiallyLoading] = useState(true);
   const [isFavorite, setIsFavorite] = useState('Loading');
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (!favoritesStatus) {
@@ -39,11 +41,21 @@ export function Details() {
         dispatch(setFavoritesStatus({ favoritesStatus: FAVORITES_STATUS_SET }));
       });
     }
-    fetchSingleBeer(beerId).then((data) => {
-      setBeer(data);
-      setIsInitiallyLoading(false);
-    });
-  }, [beerId, dispatch, favoritesStatus]);
+  }, [dispatch, favoritesStatus]);
+
+  useEffect(() => {
+    if (isInitiallyLoading) {
+      fetchSingleBeer(beerId)
+        .then((data) => {
+          setBeer(data);
+          setIsInitiallyLoading(false);
+        })
+        .catch((e) => {
+          setError(e);
+          setIsInitiallyLoading(false);
+        });
+    }
+  }, [beerId, isInitiallyLoading]);
 
   useEffect(() => {
     setIsFavorite(
@@ -61,8 +73,8 @@ export function Details() {
     return <LinearProgress />;
   }
 
-  if (!beer) {
-    return <h1 className="error_404">Error: Beer not found</h1>;
+  if (error) {
+    return <Error message={error.statusText} status={error.status} />;
   }
 
   return (
