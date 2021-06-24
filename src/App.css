@@ -147,3 +147,7 @@
   color: #c86c10;
   font-size: 18px;
 }
+
+.load-placeholder {
+  height: 5px;
+}
