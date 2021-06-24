@@ -23,3 +23,5 @@ export const refreshURL = `${urlBase}auth/refresh`;
 export const favoritesURL = `${urlBase}favorites`;
 
 export const getFavoriteURLFromId = (id) => `${urlBase}favorites/${id}`;
+
+export const getUserUrlFromId = (id) => `${urlBase}users/${id}`;
