@@ -1,5 +1,5 @@
-// const urlBase = `https://beer-catalog-21-back.herokuapp.com/`;
-const urlBase = `http://localhost:5000/`;
+const urlBase = `https://beer-catalog-21-back.herokuapp.com/`;
+// const urlBase = `http://localhost:5000/`;
 
 export function getSingleBeerURL(id) {
   return `${urlBase}beer/${id}`;
