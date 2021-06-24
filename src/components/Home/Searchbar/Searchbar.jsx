@@ -46,7 +46,6 @@ export function SearchBar() {
     switch (type) {
       case 'abv':
         setFilter({ ...filter, abv_gt: newValue });
-        console.log(filter);
         break;
       case 'ibu':
         setFilter({ ...filter, ibu_gt: newValue });

@@ -68,8 +68,6 @@ function* apiCallWithFilters(query = '', page = 1, favorites, filters) {
           ...filters,
         };
 
-  console.log(params);
-
   const url = getMultipleBeerURL(params);
 
   let fetchData = yield fetchBeerList(url);
