@@ -31,3 +31,5 @@ export const hardLogOut = () => {
   Cookies.remove('__access-token');
   Cookies.remove('__refresh-token');
 };
+
+export const getOwnId = () => parseToken(getAccessToken()).id;
