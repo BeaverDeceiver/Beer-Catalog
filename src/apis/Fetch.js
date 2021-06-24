@@ -1,14 +1,23 @@
 import { getAccessToken } from './Session';
-import { favoritesURL, getFavoriteURLFromId, getSingleBeerURL } from './URL';
+import {
+  favoritesURL,
+  getFavoriteURLFromId,
+  getSingleBeerURL,
+  getUserUrlFromId,
+} from './URL';
 
 async function sendAuthorizedRequest(url, method = 'GET') {
-  return await fetch(url, {
+  const response = await fetch(url, {
     method,
     headers: {
       Authorization: `Bearer ${getAccessToken()}`,
       'Content-Type': 'application/json',
     },
   });
+  if (response.status >= 400) {
+    throw response;
+  }
+  return response;
 }
 
 export async function fetchBeerList(url) {
@@ -32,4 +41,9 @@ export async function requestDeleteFavorite(id) {
 export async function requestAddFavorite(id) {
   const url = getFavoriteURLFromId(id);
   return await (await sendAuthorizedRequest(url, 'POST')).json();
+}
+
+export async function fetchUser(id) {
+  const url = getUserUrlFromId(id);
+  return await (await sendAuthorizedRequest(url)).json();
 }
