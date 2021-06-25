@@ -1,0 +1,15 @@
+.user-info_edit {
+  justify-content: center;
+}
+
+.edit-form__input-area {
+  min-width: 750px;
+}
+
+.edit-form__buttons-area {
+  justify-content: space-around;
+}
+
+.edit-form__input-field {
+  font-size: 16px;
+}

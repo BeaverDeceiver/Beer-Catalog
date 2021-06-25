@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { LinearProgress } from '@material-ui/core';
 import { fetchUser } from '../../apis/Fetch';
 
@@ -64,7 +64,9 @@ export function UserPage() {
               : `N/A`}
           </h1>
           {isOwnAccount ? (
-            <button className="user-info__edit-button">Edit Info</button>
+            <Link to={`/user/edit/${userId}`}>
+              <button className="user-info__edit-button">Edit Info</button>
+            </Link>
           ) : null}
         </section>
         <article className="user-info__avatar">
