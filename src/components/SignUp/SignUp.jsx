@@ -168,7 +168,10 @@ export function SignUp() {
 
               <article className="form__buttons-area">
                 <Link to="/auth/signin">
-                  <button className="form__button form__button_sign-in button">
+                  <button
+                    type="button"
+                    className="form__button form__button_sign-in button"
+                  >
                     Sign in instead
                   </button>
                 </Link>
