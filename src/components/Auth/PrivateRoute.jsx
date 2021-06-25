@@ -1,38 +1,41 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { sendRefreshRequest } from '../../apis/Auth';
-import { getAccessToken, getRefreshToken, setTokens } from '../../apis/Session';
-import { LinearProgress } from '@material-ui/core';
-// import { useDispatch } from 'react-redux';
+import { getRefreshToken, setTokens } from '../../apis/Session';
+import { useDispatch, useSelector } from 'react-redux';
+import { setAuthStatus } from '../../store/actions/actions';
+import {
+  AUTH_STATUS_LOGGED_IN,
+  AUTH_STATUS_LOGGED_OUT,
+} from '../../constants/authConstants';
+import { Error } from '../Error/Error';
+import { selectAuthStatus } from '../../store/selectors/selectors';
 
 export function PrivateRoute({ component: Component, ...rest }) {
-  const [loggedIn, setLoggedIn] = useState(getAccessToken());
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const authStatus = useSelector(selectAuthStatus);
 
-  async function restoreSession(props) {
-    try {
-      sendRefreshRequest().then((response) => {
+  async function restoreSession() {
+    sendRefreshRequest()
+      .then((response) => {
         setTokens(response);
-        setLoggedIn(getAccessToken());
-        // dispatch(setAuthStatus({ status: AUTH_STATUS_LOGGED_IN }));
+        dispatch(setAuthStatus({ status: AUTH_STATUS_LOGGED_IN }));
+      })
+      .catch((e) => {
+        dispatch(setAuthStatus({ status: AUTH_STATUS_LOGGED_OUT }));
+        return <Error message={e.statusText} status={e.status} />;
       });
-    } catch (e) {
-      console.log(`error :${e}`);
-      // dispatch(setAuthStatus({ status: AUTH_STATUS_LOGGED_OUT }));
-      return false;
-    }
   }
 
   return (
     <Route
       {...rest}
       render={(props) =>
-        loggedIn ? (
+        authStatus ? (
           <Component {...props} />
         ) : getRefreshToken() ? (
           (() => {
             restoreSession();
-            return <LinearProgress />;
           })()
         ) : (
           <Redirect
