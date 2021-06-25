@@ -8,8 +8,8 @@ import { fetchUser } from '../../../apis/Fetch';
 import { Error } from '../../Error/Error';
 import { getOwnId } from '../../../apis/Session';
 
-import '../UserPage.css';
 import './EditUserPage.css';
+import '../UserPage.css';
 
 export function EditUserPage() {
   const { userId } = useParams();
@@ -29,6 +29,8 @@ export function EditUserPage() {
   //   setErrorMessage(e.message);
   //   setTimeout(() => setInvalidData(false), 2000);
   // };
+
+  // const dob =
 
   useEffect(() => {
     setIsOwnAccount(getOwnId() === Number(userId));
@@ -65,10 +67,12 @@ export function EditUserPage() {
           <h1 className="form__header">Edit</h1>
           <Formik
             initialValues={{
-              firstName: '',
-              lastName: '',
-              email: '',
-              dob: {},
+              firstName: user.firstName,
+              lastName: user.lastName,
+              email: user.email,
+              dob: user.userInfo.dob
+                ? new Date(user.userInfo.dob).toLocaleDateString()
+                : `N/A`,
             }}
             // onSubmit={async (values) => {
             //   setSubmitted(true);
@@ -146,7 +150,7 @@ export function EditUserPage() {
                     id="dob"
                     name="dob"
                     placeholder={
-                      user.userInfo && user.userInfo.dob
+                      user.userInfo.dob
                         ? new Date(user.userInfo.dob).toLocaleDateString()
                         : `N/A`
                     }
