@@ -56,17 +56,17 @@ export function SignIn() {
           }}
           onSubmit={async (values) => {
             setSubmitted(true);
-            try {
-              const response = await sendSignInRequest(values);
-              setTokens(response);
-              dispatch(setAuthStatus({ status: AUTH_STATUS_LOGGED_IN }));
-              setSubmitted(false);
-
-              setRedirect(true);
-            } catch (e) {
-              setSubmitted(false);
-              handleInvalidData();
-            }
+            sendSignInRequest(values)
+              .then((response) => {
+                setTokens(response);
+                dispatch(setAuthStatus({ status: AUTH_STATUS_LOGGED_IN }));
+                setSubmitted(false);
+                setRedirect(true);
+              })
+              .catch((e) => {
+                setSubmitted(false);
+                handleInvalidData();
+              });
           }}
         >
           {({ errors, touched }) => (
@@ -103,7 +103,10 @@ export function SignIn() {
 
               <article className="form__buttons-area">
                 <Link to="/auth/signup">
-                  <button className="form__button form__button_sign-in button">
+                  <button
+                    type="button"
+                    className="form__button form__button_sign-in button"
+                  >
                     Sign up instead
                   </button>
                 </Link>
