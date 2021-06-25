@@ -9,6 +9,7 @@ import { Details } from './components/Details/Details';
 import { SignIn } from './components/SignIn/SignIn';
 import { SignUp } from './components/SignUp/SignUp';
 import { UserPage } from './components/UserPage/UserPage';
+import { EditUserPage } from './components/UserPage/EditUserPage/EditUserPage';
 
 import { PrivateRoute } from './components/Auth/PrivateRoute';
 import { getAccessToken } from './apis/Session';
@@ -40,7 +41,8 @@ function App() {
           <PrivateRoute exact path="/" component={Home} />
           <PrivateRoute path="/favorites" component={Favorites} />
           <PrivateRoute path="/beer/:beerId" component={Details} />
-          <PrivateRoute path="/user/:userId" component={UserPage} />
+          <PrivateRoute exact path="/user/:userId" component={UserPage} />
+          <PrivateRoute path="/user/edit/:userId" component={EditUserPage} />
           <Route path="/auth/signin" component={SignIn} />
           <Route path="/auth/signup" component={SignUp} />
         </div>
