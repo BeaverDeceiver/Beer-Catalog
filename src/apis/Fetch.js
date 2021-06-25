@@ -14,8 +14,12 @@ async function sendAuthorizedRequest(url, method = 'GET') {
       'Content-Type': 'application/json',
     },
   });
-  if (response.status >= 400) {
-    throw response;
+  if (!response.ok) {
+    const error = {
+      message: (await response.json()).message,
+      status: response.status,
+    };
+    throw error;
   }
   return response;
 }

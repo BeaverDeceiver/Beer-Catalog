@@ -3,42 +3,58 @@ import { refreshURL, signInURL, signUpURL } from './URL';
 
 export async function sendSignInRequest(user) {
   const url = signInURL;
-  const response = fetch(url, {
+  const response = await fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(user),
   });
-  if ((await response).status === 400)
-    throw new Error('Incorrect email or password');
-  return (await response).json();
+  if (!response.ok) {
+    const error = {
+      message: (await response.json()).message,
+      status: response.status,
+    };
+    throw error;
+  }
+  return await response.json();
 }
 
 export async function sendRefreshRequest() {
   const refreshToken = getRefreshToken();
   const url = refreshURL;
-  const response = fetch(url, {
+  const response = await fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ refreshToken }),
   });
-  return (await response).json();
+  if (!response.ok) {
+    const error = {
+      message: (await response.json()).message,
+      status: response.status,
+    };
+    throw error;
+  }
+  return response.json();
 }
 
 export async function sendSignUpRequest(user) {
   const url = signUpURL;
-  const response = fetch(url, {
+  const response = await fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(user),
   });
-  if ((await response).status === 400) {
-    throw new Error((await (await response).json()).message);
+  if (!response.ok) {
+    const error = {
+      message: (await response.json()).message,
+      status: response.status,
+    };
+    throw error;
   }
-  return await (await response).json();
+  return await response.json();
 }
