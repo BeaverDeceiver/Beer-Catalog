@@ -48,33 +48,24 @@ export function UserPage() {
           <h1 className="user-info__field">
             <p className="user-info__field-caption">First Name: </p>
             {user.firstName}
-            {isOwnAccount ? (
-              <button className="user-info__edit-button">Edit</button>
-            ) : null}
           </h1>
           <h1 className="user-info__field">
             <p className="user-info__field-caption">Last Name: </p>
             {user.lastName}
-            {isOwnAccount ? (
-              <button className="user-info__edit-button">Edit</button>
-            ) : null}
           </h1>
           <h1 className="user-info__field">
             <p className="user-info__field-caption">Email: </p>
             {user.email}
-            {isOwnAccount ? (
-              <button className="user-info__edit-button">Edit</button>
-            ) : null}
           </h1>
           <h1 className="user-info__field">
             <p className="user-info__field-caption">DOB: </p>
             {user.userInfo.dob
               ? new Date(user.userInfo.dob).toLocaleDateString()
               : `N/A`}
-            {isOwnAccount ? (
-              <button className="user-info__edit-button">Edit</button>
-            ) : null}
           </h1>
+          {isOwnAccount ? (
+            <button className="user-info__edit-button">Edit Info</button>
+          ) : null}
         </section>
         <article className="user-info__avatar">
           <img
