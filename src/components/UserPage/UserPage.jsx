@@ -4,6 +4,8 @@ import { LinearProgress } from '@material-ui/core';
 import { fetchUser } from '../../apis/Fetch';
 
 import { Error } from '../Error/Error';
+import { getOwnId } from '../../apis/Session';
+
 import './UserPage.css';
 
 export function UserPage() {
@@ -13,6 +15,11 @@ export function UserPage() {
   const [user, setUser] = useState({});
 
   const [error, setError] = useState(null);
+  const [isOwnAccount, setIsOwnAccount] = useState(null);
+
+  useEffect(() => {
+    setIsOwnAccount(getOwnId() === Number(userId));
+  }, [userId]);
 
   useEffect(() => {
     fetchUser(userId)
@@ -41,20 +48,32 @@ export function UserPage() {
           <h1 className="user-info__field">
             <p className="user-info__field-caption">First Name: </p>
             {user.firstName}
+            {isOwnAccount ? (
+              <button className="user-info__edit-button">Edit</button>
+            ) : null}
           </h1>
           <h1 className="user-info__field">
             <p className="user-info__field-caption">Last Name: </p>
             {user.lastName}
+            {isOwnAccount ? (
+              <button className="user-info__edit-button">Edit</button>
+            ) : null}
           </h1>
           <h1 className="user-info__field">
             <p className="user-info__field-caption">Email: </p>
             {user.email}
+            {isOwnAccount ? (
+              <button className="user-info__edit-button">Edit</button>
+            ) : null}
           </h1>
           <h1 className="user-info__field">
             <p className="user-info__field-caption">DOB: </p>
             {user.userInfo.dob
               ? new Date(user.userInfo.dob).toLocaleDateString()
               : `N/A`}
+            {isOwnAccount ? (
+              <button className="user-info__edit-button">Edit</button>
+            ) : null}
           </h1>
         </section>
         <article className="user-info__avatar">
@@ -63,6 +82,11 @@ export function UserPage() {
             src={user.userInfo.avatar_url}
             alt="User Avatar"
           ></img>
+          {isOwnAccount ? (
+            <button className="user-info__edit-button user-info__edit-button_avatar">
+              Change Avatar
+            </button>
+          ) : null}
         </article>
       </article>
     </section>

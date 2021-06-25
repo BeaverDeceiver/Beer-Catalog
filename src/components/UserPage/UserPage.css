@@ -29,6 +29,9 @@
 
 .user-info__avatar {
   font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .user-info__avatar-image {
@@ -44,4 +47,29 @@
 
   align-items: center;
   justify-content: center;
+}
+
+.user-info__edit-button {
+  margin: 0 20px;
+  padding: 4px 12px;
+
+  color: #ffffff;
+  border: 1px solid #106cc8;
+  border-radius: 7px;
+  background-color: #106cc8;
+
+  font-size: 14px;
+}
+
+.user-info__edit-button:hover {
+  background-color: #1376d9;
+}
+
+.user-info__edit-button:active {
+  background-color: #0080ff;
+}
+
+.user-info__edit-button_avatar {
+  width: 60%;
+  margin: 20px 0;
 }
