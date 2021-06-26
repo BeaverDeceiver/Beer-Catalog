@@ -1,0 +1,27 @@
+.signed-in {
+  display: flex;
+  flex-direction: column;
+
+  margin: 0 auto;
+
+  justify-content: space-around;
+}
+
+.signed-in__button {
+  margin: 0 10px;
+
+  color: #ffffff;
+  border: 1px solid #106cc8;
+  border-radius: 7px;
+  background-color: #106cc8;
+
+  font-size: 14px;
+}
+
+.signed-in__button:hover {
+  background-color: #1376d9;
+}
+
+.signed-in__button:active {
+  background-color: #0080ff;
+}

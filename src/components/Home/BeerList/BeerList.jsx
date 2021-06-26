@@ -30,7 +30,7 @@ export function BeerList() {
       setDidLoad(true);
       batch(() => {
         dispatch(setStatus({ status: STATE_STATUS_BUSY }));
-        dispatch(fetchBeer({ query: '', favorites }));
+        dispatch(fetchBeer({ query: '' }));
       });
     }
   }, [didLoad, dispatch, favorites]);
@@ -38,9 +38,9 @@ export function BeerList() {
   const shownItems = shouldFilter
     ? beerItems.filter((item) => {
         return (
-          filters.abv <= item.abv &&
-          filters.ibu <= item.ibu &&
-          filters.ebc <= item.ebc
+          filters.abv_gt <= item.abv &&
+          filters.ibu_gt <= item.ibu &&
+          filters.ebc_gt <= item.ebc
         );
       })
     : beerItems;

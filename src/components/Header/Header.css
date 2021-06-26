@@ -1,3 +1,5 @@
+/* drawer */
+/* ----------------------------------------- */
 .drawer__button {
   color: #ffffff;
 }
@@ -22,7 +24,8 @@
   margin-top: 30px;
   margin-left: 45px;
 }
-
+/* ----------------------------------------- */
+/* header */
 .header {
   display: flex;
 
@@ -31,11 +34,59 @@
   background-color: #106cc8;
 
   align-items: center;
+  justify-content: space-between;
 }
 
 .header__caption,
 .drawer__caption {
+  display: inline-block;
+
+  padding: 5px 4px 7px;
+
   color: #ffffff;
 
   font-size: 16px;
+}
+
+.header__caption {
+  margin: 8px -2px 4px;
+}
+
+.header__caption:hover {
+  border-radius: 6px;
+  outline: 1px solid;
+}
+
+.header__caption:active {
+  background-color: rgba(216, 191, 216, 0.192);
+}
+
+/* user-space */
+.header__user-area {
+  margin: auto 25px;
+}
+
+.header__button {
+  margin-left: 15px;
+  padding: 6px 10px;
+
+  color: #ffffff;
+  border-radius: 7px;
+  background-color: transparent;
+
+  font-size: 15px;
+}
+
+.header__button:hover {
+  padding: 6px 9px;
+
+  border: solid 1px #ffffff;
+  border-radius: 5px;
+}
+
+.header__button:active {
+  padding: 6px 9px;
+
+  border-radius: 5px;
+  background-color: rgba(216, 191, 216, 0.192);
 }

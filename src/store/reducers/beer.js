@@ -4,7 +4,10 @@ import {
   EBC_COLOR_MIN,
   IBU_MIN,
 } from '../../constants/beerConstants';
-import { STATE_STATUS_IDLE } from '../../constants/stateConstants';
+import {
+  FAVORITES_STATUS_UNSET,
+  STATE_STATUS_IDLE,
+} from '../../constants/stateConstants';
 
 import {
   listBeer,
@@ -19,12 +22,15 @@ import {
   clearFilters,
   addFavoriteDetails,
   removeFavoriteDetails,
+  resetReachedEnd,
+  setFavorites,
+  setFavoritesStatus,
 } from '../actions/actions';
 
 const defaultFilters = {
-  abv: ALCOHOL_VOLUME_MIN,
-  ibu: IBU_MIN,
-  ebc: EBC_COLOR_MIN,
+  abv_bg: ALCOHOL_VOLUME_MIN,
+  ibu_gt: IBU_MIN,
+  ebc_gt: EBC_COLOR_MIN,
 };
 
 const defaultState = {
@@ -33,6 +39,7 @@ const defaultState = {
   reachedEnd: false,
   beer: [],
   favorites: [],
+  favoritesStatus: FAVORITES_STATUS_UNSET,
   page: 1,
   filters: defaultFilters,
   filterStatus: false,
@@ -57,7 +64,7 @@ const beerSearch = handleActions(
         page: state.page + 1,
       };
     },
-    [clearBeer]: (state, action) => {
+    [clearBeer]: (state) => {
       return {
         ...state,
         beer: [],
@@ -73,7 +80,7 @@ const beerSearch = handleActions(
     [setFilterStatus]: (state, action) => {
       return { ...state, filterStatus: action.payload.filterStatus };
     },
-    [clearFilters]: (state, action) => {
+    [clearFilters]: (state) => {
       return {
         ...state,
         filters: defaultFilters,
@@ -120,6 +127,18 @@ const beerSearch = handleActions(
         ),
       };
     },
+    [setFavorites]: (state, action) => {
+      return {
+        ...state,
+        favorites: action.payload.favorites,
+      };
+    },
+    [setFavoritesStatus]: (state, action) => {
+      return {
+        ...state,
+        favoritesStatus: action.payload.favoritesStatus,
+      };
+    },
     // status
     [setStatus]: (state, action) => {
       return {
@@ -127,10 +146,16 @@ const beerSearch = handleActions(
         status: action.payload.status,
       };
     },
-    [reachedEnd]: (state, action) => {
+    [reachedEnd]: (state) => {
       return {
         ...state,
         reachedEnd: true,
+      };
+    },
+    [resetReachedEnd]: (state) => {
+      return {
+        ...state,
+        reachedEnd: false,
       };
     },
   },

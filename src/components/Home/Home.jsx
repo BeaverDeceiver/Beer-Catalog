@@ -10,14 +10,16 @@ import {
   clearBeer,
   clearFilters,
   fetchMoreBeer,
+  fetchMoreBeerWithFilters,
   setStatus,
 } from '../../store/actions/actions';
 import {
-  selectFavorites,
   selectPage,
   selectQuery,
   selectReachedEnd,
   selectStatus,
+  selectFilters,
+  selectFilterStatus,
 } from '../../store/selectors/selectors';
 
 import _ from 'lodash';
@@ -27,7 +29,8 @@ export function Home() {
   const query = useSelector(selectQuery);
   const page = useSelector(selectPage);
   const reachedEnd = useSelector(selectReachedEnd);
-  const favorites = useSelector(selectFavorites);
+  const shouldFilter = useSelector(selectFilterStatus);
+  const filters = useSelector(selectFilters);
 
   const dispatch = useDispatch();
 
@@ -40,7 +43,9 @@ export function Home() {
     ) {
       batch(() => {
         dispatch(setStatus({ status: STATE_STATUS_BUSY }));
-        dispatch(fetchMoreBeer({ query, page, favorites }));
+        shouldFilter
+          ? dispatch(fetchMoreBeerWithFilters({ query, page, filters }))
+          : dispatch(fetchMoreBeer({ query, page }));
       });
     }
   }, 100);

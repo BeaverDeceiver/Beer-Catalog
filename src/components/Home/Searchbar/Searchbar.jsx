@@ -1,8 +1,9 @@
 import React, { useState, useRef } from 'react';
-import { useDispatch, useSelector, batch } from 'react-redux';
+import { useDispatch, batch } from 'react-redux';
 import SearchIcon from '@material-ui/icons/Search';
 import {
   fetchBeer,
+  resetReachedEnd,
   setFilters,
   setFilterStatus,
   setStatus,
@@ -13,26 +14,24 @@ import {
   IBU_MIN,
 } from '../../../constants/beerConstants';
 import { STATE_STATUS_BUSY } from '../../../constants/stateConstants';
-import { selectFavorites } from '../../../store/selectors/selectors';
 import { Filters } from '../Filters/Filters';
 import './Searchbar.css';
 
 export function SearchBar() {
   const [query, setQuery] = useState('');
   const [filter, setFilter] = useState({
-    abv: ALCOHOL_VOLUME_MIN,
-    ebc: EBC_COLOR_MIN,
-    ibu: IBU_MIN,
+    abv_gt: ALCOHOL_VOLUME_MIN,
+    ebc_gt: EBC_COLOR_MIN,
+    ibu_gt: IBU_MIN,
   });
   const [displayFilters, setDisplayFilters] = useState(false);
   const dispatch = useDispatch();
   const textInput = useRef(null);
-  const favorites = useSelector(selectFavorites);
 
   function handleSearch() {
     batch(() => {
       dispatch(setStatus({ status: STATE_STATUS_BUSY }));
-      dispatch(fetchBeer({ query, favorites }));
+      dispatch(fetchBeer({ query }));
     });
     textInput.current.blur();
     setDisplayFilters(true);
@@ -46,13 +45,13 @@ export function SearchBar() {
     const newValue = Number(e.target.value);
     switch (type) {
       case 'abv':
-        setFilter({ ...filter, abv: newValue });
+        setFilter({ ...filter, abv_gt: newValue });
         break;
       case 'ibu':
-        setFilter({ ...filter, ibu: newValue });
+        setFilter({ ...filter, ibu_gt: newValue });
         break;
       case 'ebc':
-        setFilter({ ...filter, ebc: newValue });
+        setFilter({ ...filter, ebc_gt: newValue });
         break;
       default:
         return;
@@ -60,6 +59,7 @@ export function SearchBar() {
     batch(() => {
       dispatch(setFilters({ filters: filter }));
       dispatch(setFilterStatus({ filterStatus: displayFilters }));
+      dispatch(resetReachedEnd());
     });
     e.target.title = e.target.value;
   }

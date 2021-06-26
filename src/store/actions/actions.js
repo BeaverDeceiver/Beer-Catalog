@@ -12,6 +12,10 @@ export const fetchBeer = createAction('FETCH_BEER');
 
 export const fetchMoreBeer = createAction('FETCH_MORE_BEER');
 
+export const fetchMoreBeerWithFilters = createAction(
+  'FETCH_MORE_BEER_WITH_FILTERS'
+);
+
 // filters
 export const setFilters = createAction('SET_FILTERS');
 
@@ -32,7 +36,19 @@ export const addFavoriteDetails = createAction('ADD_FAVORITE_DETAILS');
 
 export const removeFavoriteDetails = createAction('REMOVE_FAVORITE_DETAILS');
 
+export const fetchFavorites = createAction('FETCH_FAVORITES');
+
+export const setFavorites = createAction('SET_FAVORITES');
+
+export const setFavoritesStatus = createAction('SET_FAVORITES_STATUS');
+
 // status
 export const setStatus = createAction('SET_STATUS');
 
 export const reachedEnd = createAction('REACHED_END');
+
+export const resetReachedEnd = createAction('RESET_REACHED_END');
+
+// auth
+
+export const setAuthStatus = createAction('SET_AUTH_STATUS');

@@ -1,4 +1,6 @@
 import React, { useState, Fragment } from 'react';
+import { Link } from 'react-router-dom';
+
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
@@ -8,11 +10,17 @@ import DehazeIcon from '@material-ui/icons/Dehaze';
 import StarIcon from '@material-ui/icons/Star';
 import InboxIcon from '@material-ui/icons/Inbox';
 
-import { Link } from 'react-router-dom';
-
 import './Header.css';
-export default function TemporaryDrawer() {
+import { useDispatch, useSelector } from 'react-redux';
+import { selectAuthStatus } from '../../store/selectors/selectors';
+import { getOwnId, hardLogOut } from '../../apis/Session';
+import { setAuthStatus } from '../../store/actions/actions';
+import { AUTH_STATUS_LOGGED_OUT } from '../../constants/authConstants';
+
+export function Header() {
   const [state, setState] = useState({ isOpen: false });
+  const dispatch = useDispatch();
+  const authStatus = useSelector(selectAuthStatus);
 
   const toggleDrawer = (open) => (event) => {
     if (
@@ -21,17 +29,26 @@ export default function TemporaryDrawer() {
     ) {
       return;
     }
-
     setState({ isOpen: open });
+  };
+
+  const handleLogOut = () => {
+    hardLogOut();
+    dispatch(setAuthStatus({ status: AUTH_STATUS_LOGGED_OUT }));
   };
 
   return (
     <section className="header">
       <Fragment key={'left'}>
-        <Button onClick={toggleDrawer(true)}>
-          <DehazeIcon className="drawer__button" />
-        </Button>
-        <h1 className="header__caption">Beer catalog</h1>
+        <div>
+          <Button onClick={toggleDrawer(true)}>
+            <DehazeIcon className="drawer__button" />
+          </Button>
+
+          <Link to="/">
+            <h1 className="header__caption">Beer catalog</h1>
+          </Link>
+        </div>
         <Drawer
           anchor={'left'}
           open={state.isOpen}
@@ -58,6 +75,31 @@ export default function TemporaryDrawer() {
           </List>
         </Drawer>
       </Fragment>
+
+      <article className="header__user-area">
+        {authStatus ? (
+          <>
+            <Link to={`/user/${getOwnId()}`}>
+              <button className="header__button button">Account</button>
+            </Link>
+            <Link to="/auth/signin">
+              <button className="header__button button" onClick={handleLogOut}>
+                Sign Out
+              </button>
+            </Link>
+          </>
+        ) : (
+          <>
+            <Link to="/auth/signin">
+              <button className="header__button button">Sign In</button>
+            </Link>
+
+            <Link to="/auth/signup">
+              <button className="header__button button">Sign Up</button>
+            </Link>
+          </>
+        )}
+      </article>
     </section>
   );
 }

@@ -3,14 +3,23 @@ import { fetchSingleBeer } from '../../apis/Fetch';
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { selectFavorites } from '../../store/selectors/selectors';
+import { useSelector, useDispatch, batch } from 'react-redux';
+import {
+  selectFavorites,
+  selectFavoritesStatus,
+} from '../../store/selectors/selectors';
 
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import Tooltip from '@material-ui/core/Tooltip';
 import { LinearProgress } from '@material-ui/core';
 import './Details.css';
-import { toggleFavoriteDetails } from '../../store/actions/actions';
+import {
+  fetchFavorites,
+  setFavoritesStatus,
+  toggleFavoriteDetails,
+} from '../../store/actions/actions';
+import { FAVORITES_STATUS_SET } from '../../constants/stateConstants';
+import { Error } from '../Error/Error';
 
 export function Details() {
   const { beerId } = useParams();
@@ -18,20 +27,42 @@ export function Details() {
   const dispatch = useDispatch();
 
   const favorites = useSelector(selectFavorites);
+  const favoritesStatus = useSelector(selectFavoritesStatus);
 
   const [beer, setBeer] = useState({});
   const [isInitiallyLoading, setIsInitiallyLoading] = useState(true);
-  const [isFavorite, setIsFavorite] = useState(true);
+  const [isFavorite, setIsFavorite] = useState('Loading');
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetchSingleBeer(beerId).then((data) => {
-      setBeer(data);
-      setIsInitiallyLoading(false);
-    });
-  }, [beerId]);
+    if (!favoritesStatus) {
+      batch(() => {
+        dispatch(fetchFavorites());
+        dispatch(setFavoritesStatus({ favoritesStatus: FAVORITES_STATUS_SET }));
+      });
+    }
+  }, [dispatch, favoritesStatus]);
 
   useEffect(() => {
-    setIsFavorite(favorites.find((item) => item.id === Number(beerId)));
+    if (isInitiallyLoading) {
+      fetchSingleBeer(beerId)
+        .then((data) => {
+          setBeer(data);
+          setIsInitiallyLoading(false);
+        })
+        .catch((e) => {
+          setError(e);
+          setIsInitiallyLoading(false);
+        });
+    }
+  }, [beerId, isInitiallyLoading]);
+
+  useEffect(() => {
+    setIsFavorite(
+      favorites.find((item) => item.id === Number(beerId))
+        ? 'Remove from Favorites'
+        : 'Add To Favorites'
+    );
   }, [beerId, favorites]);
 
   function handleToggleFavorite() {
@@ -42,8 +73,8 @@ export function Details() {
     return <LinearProgress />;
   }
 
-  if (!beer) {
-    return <h1 className="error_404">Error: Beer not found</h1>;
+  if (error) {
+    return <Error message={error.statusText} status={error.status} />;
   }
 
   return (
@@ -57,7 +88,7 @@ export function Details() {
               className="details__favorite-button button"
               onClick={handleToggleFavorite}
             >
-              {isFavorite ? 'Remove from Favorites' : 'Add To Favorites'}
+              {isFavorite}
             </button>
             <p className="details__description">{beer.description}</p>
           </article>
